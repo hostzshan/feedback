@@ -1,3 +1,17 @@
+<?php
+$canvas_heading='Feedback and Grievance Management';
+if(isset($_SESSION['usertype'])) { // if already login
+  header("location: dashboard.php");
+}
+else{
+  $usertype='n';
+  $nav_type='login';
+  $menu_items=array('token'=>'Generate Token','signin'=>'Sign In','contact'=>'Contact Administrator');
+}
+$canvas_paint=$usertype.'/token.php';
+
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,8 +32,10 @@
 <!-- index css -->
 <link rel="stylesheet" href="css/index.css">
 
+<!-- universal js -->
+<script src="js/universal.js"></script>
 <!-- index js -->
-  <script src="js/index.js"></script>
+<script src="js/index.js"></script>
 </head>
 <?php
 include "php-back/"."connection.php"; //connect the connection page
@@ -31,43 +47,12 @@ session_start();
 <?php
   include 'php-front/ajaxloader.php';
   
-  $canvas_heading='Feedback and Grievance Management';
-  if(isset($_SESSION['usertype'])) { // if already login
-    $usertype=$_SESSION['usertype'];
-    $nav_type='dash';
-    $canvas_paint=$usertype.'dashboard.php';
-  }
-  else{
-    $nav_type='ind';
-    $canvas_paint='login.php';
-  }
-
-
-  include 'php-front/nav_'.$nav_type.'.php';
+  include 'php-front/nav/'.$nav_type.'.php';
   include 'php-front/canvaspainter.php';
   include 'php-front/footer.php'; 
 ?>
 <script>
-$( '.nav li a' ).on( 'click', function () {
-$( '.nav' ).find( 'li.active' ).removeClass( 'active' );
-$( this ).parent( 'li' ).addClass( 'active' );
-
-$.ajax({
-    url: "request/getfragment.php",
-    type: "POST",
-    data: "module="+$(this).data('module'),
-    success: function(response){ 
-        $('.review').html(response);
-        //handle returned arrayList
-    },
-    error: function(e){  
-        alert("error");
-        //handle error
-    } 
-});
-
-
-});
+$( '.z-menubar' ).fragmentLoader();
 </script>
 </body>
 </html>

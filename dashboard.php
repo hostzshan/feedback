@@ -1,15 +1,15 @@
 <?php
-$canvas_heading='Feedback and Grievance Management';
+$canvas_heading='Dashboard - Feedback and Grievance Management System';
 session_start();
-if(isset($_SESSION['usertype'])) { // if already login
-  header("location: dashboard.php");
+if(!isset($_SESSION['usertype'])) { // if already login
+  header("location: index.php");
 }
 else{
-  $usertype='n';
-  $nav_type='login';
-  $menu_items=array('signin'=>'Sign In','register'=>'Request Access');
+    extract($_SESSION);
+    $nav_type='login';
+    $menu_items=array('approve'=>'Approve Users','generateaccesscode'=>'Generate Access Code');
 }
-$canvas_paint=$usertype.'/signin.php';
+$canvas_paint=$usertype.'/approve.php';
 
 ?>
 

@@ -1,5 +1,6 @@
 <?php
 $canvas_heading='Feedback and Grievance Management';
+session_start();
 if(isset($_SESSION['usertype'])) { // if already login
   header("location: dashboard.php");
 }
@@ -39,7 +40,6 @@ $canvas_paint=$usertype.'/signin.php';
 </head>
 <?php
 include "php-back/"."connection.php"; //connect the connection page
-session_start();
 
 ?>
 <body>

@@ -15,6 +15,12 @@
 			</div>
 		</div>
 		<div class="row form-group">
+			<label for="pass_re" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Re-type Password</label>
+			<div class="col-sm-10">
+				<input id="pass_re" name="pass_re" type="password" class="form-control" required />
+			</div>
+		</div>
+		<div class="row form-group">
 			<label for="access_code" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Access code</label>
 			<div class="col-sm-10">
 				<input id="access_code" name="access_code" type="text" class="form-control" required />

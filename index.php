@@ -6,9 +6,9 @@ if(isset($_SESSION['usertype'])) { // if already login
 else{
   $usertype='n';
   $nav_type='login';
-  $menu_items=array('token'=>'Generate Token','signin'=>'Sign In','contact'=>'Contact Administrator');
+  $menu_items=array('signin'=>'Sign In','register'=>'Request Access');
 }
-$canvas_paint=$usertype.'/token.php';
+$canvas_paint=$usertype.'/signin.php';
 
 ?>
 

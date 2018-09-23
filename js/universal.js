@@ -5,13 +5,13 @@ $.fn.fragmentLoader=function(){
         $(this).addClass('active');
         var fragment=$(this).closest('ul').data('fragment');
         var module=fragment+'='+$(this).data(fragment);
-        $('#'+fragment).ajaxReload(fragment,module);
+        $('#'+fragment).ajaxReload("get",fragment,module);
     });
   }
-$.fn.ajaxReload= function(url,data){
+$.fn.ajaxReload= function(urltype,url,data){
     var elem=this;
     $.ajax({
-        url: "php-back/get"+url+".php",
+        url: "php-back/"+urltype+url+".php",
         type: "POST",
         data: data,
         success: function(response){ 

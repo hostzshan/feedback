@@ -7,9 +7,10 @@ if(isset($_SESSION['usertype'])) { // if already login
 else{
   $usertype='n';
   $nav_type='login';
+  $menu_heading='Login';
   $menu_items=array('signin'=>'Sign In','register'=>'Request Access');
+  $canvas_paint=$usertype.'/signin.php';
 }
-$canvas_paint=$usertype.'/signin.php';
 
 ?>
 

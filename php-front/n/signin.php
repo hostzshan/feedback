@@ -38,7 +38,7 @@
             if($("#"+formid).find('.has-error').length==0) 
             {
                 var data= $("#"+formid).serialize();
-                $('#module').ajaxReload("submit",formid,data);
+                $('#module').ajaxReload("request",formid,data);
             }
         }, 50);
     });

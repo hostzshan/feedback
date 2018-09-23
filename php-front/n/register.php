@@ -1,4 +1,4 @@
-<form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="token" >
+<form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="regitration" >
 <div class="panel panel-info">
 	<div class="panel-heading" data-toggle="collapse" data-target="#one" style="font-size:150%;"><b>Fill your details</b><span class="btn btn-info pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse in one" id="one">
@@ -46,13 +46,12 @@
         var formid=$(this).attr('id');//get this form's id
         e.preventDefault(); // avoid to execute the actual submit of the form.
 	    setTimeout(function(e){ //wait 50ms to allow validator to execute
-            var url = formid; // the script where you handle the form input.
             // var data1=$("#"+formid).serialize()+"&flag"+formid+"=Y";
 	        // alert($("#"+formid).find('.has-error').length);//No of errors in the form
             if($("#"+formid).find('.has-error').length==0) 
             {
                 var data= $("#"+formid).serialize();
-                $('#token').ajaxReload(url,data);
+                $('#token').ajaxReload("submit",formid,data);
             }
         }, 50);
     });

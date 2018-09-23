@@ -7,9 +7,19 @@ if(!isset($_SESSION['usertype'])) { // if already login
 else{
     extract($_SESSION);
     $nav_type='login';
-    $menu_items=array('approve'=>'Approve Users','generateaccesscode'=>'Generate Access Code');
+    if($usertype=='a')
+    {
+        $menu_heading="Administrator";
+        $menu_items=array('approve'=>'Approve Users','accesscode'=>'Generate Access Code');
+        $canvas_paint=$usertype.'/approve.php';
+    }
+    else if($usertype=='s')
+    {
+        $menu_heading="Student";
+        $menu_items=array('feedback'=>'Feedback','past'=>'Past Feedback');
+        $canvas_paint=$usertype.'/feedback.php';
+    }
 }
-$canvas_paint=$usertype.'/approve.php';
 
 ?>
 

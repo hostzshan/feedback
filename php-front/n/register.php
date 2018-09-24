@@ -1,4 +1,5 @@
-<form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="regitration" >
+<div id="response"></div>
+<form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="register" >
 <div class="panel panel-info">
 	<div class="panel-heading" data-toggle="collapse" data-target="#one" style="font-size:150%;"><b>Fill your details</b><span class="btn btn-info pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse in one" id="one">
@@ -17,7 +18,19 @@
 		<div class="row form-group">
 			<label for="pass_re" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Re-type Password</label>
 			<div class="col-sm-10">
-				<input id="pass_re" name="pass_re" type="password" class="form-control" required />
+				<input id="pass_re" data-match="#pass" data-match-error="Passwords don't match" type="password" class="form-control" required />
+				<div class="help-block with-errors"></div>
+			</div>
+		</div>
+		<div class="row form-group">
+			<label for="dep" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Department</label>
+			<div class="col-sm-10">
+				<select required class="form-control" id="dep" name="dep">
+					<option value="">--Select--</option>
+					<option value="CSE">Computer Science and Engineering</option>
+					<option value="IT">Information Technology</option>
+					<option value="CE">Civil Engineering</option>
+				</select>
 			</div>
 		</div>
 		<div class="row form-group">
@@ -51,7 +64,7 @@
             if($("#"+formid).find('.has-error').length==0) 
             {
                 var data= $("#"+formid).serialize();
-                $('#token').ajaxReload("submit",formid,data);
+                $('#response').ajaxReload("submit",formid,data);
             }
         }, 50);
     });

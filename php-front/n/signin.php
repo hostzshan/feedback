@@ -1,6 +1,7 @@
+<div id="response"></div>
 <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="dashboard" >
-<div class="panel panel-danger">
-	<div class="panel-heading" data-toggle="collapse" data-target="#one" style="cursor:pointer;font-size:150%;"><b>Fill your details</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
+<div class="panel panel-info">
+	<div class="panel-heading" data-toggle="collapse" data-target="#one" style="cursor:pointer;font-size:150%;"><b>Fill your details</b><span class="btn btn-info pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse in one" id="one">
 		<div class="row form-group">
 			<label for="username" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Username</label>
@@ -38,7 +39,7 @@
             if($("#"+formid).find('.has-error').length==0) 
             {
                 var data= $("#"+formid).serialize();
-                $('#module').ajaxReload("request",formid,data);
+                $('#response').ajaxReload("request",formid,data);
             }
         }, 50);
     });

@@ -15,7 +15,7 @@ extract($_SESSION);
 	include "../php-front/".$usertype.'/'.$module.'.php';
 }
 else{
-	include '../php-front/n/'.$module.'.php';
+	header("location: ../index.php");
 }
 
 ?>

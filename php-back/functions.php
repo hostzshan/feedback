@@ -10,7 +10,7 @@ function insertintodb($table,$data){
     $keys=implode(",", array_keys($data) );
     $values=implode("','", array_values($data) );
     $FILLteam="INSERT INTO $table ($keys) values ('$values')";
-    echo $FILLteam;
+    // echo $FILLteam;
     if($conn->query($FILLteam))
         return true;
     else
@@ -49,6 +49,11 @@ function inputvalidate($mode,$data){
             }
     }
     return $flag==0?true:false;
+}
+function generateaccesscode($access){
+    $bytes = random_bytes(3);
+    $code=bin2hex($bytes);
+    return $access.$code;
 }
 function sendmail($to,$subject,$body){
     $mail = new PHPMailer(); // create a new object

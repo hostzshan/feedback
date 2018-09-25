@@ -19,6 +19,37 @@ function insertintodb($table,$data){
 function errordisplay($error_main,$error_desc){
     echo '<div class="alert alert-danger"><strong>'.$error_main.'!</strong> '.$error_desc.'</div>';
 }
+function inputvalidate($mode,$data){
+    $flag=0;
+    if($mode=='max-length')
+    {
+        foreach($data as $x => $x_value)
+            if(strlen($x)>$x_value)
+            {
+                $flag=1;
+                break;
+            }
+    }
+    else if($mode=='exact-length')
+    {
+        foreach($data as $x => $x_value)
+            if(strlen($x)!=$x_value)
+            {
+                $flag=1;
+                break;
+            }
+    }
+    else if($mode=='min-length')
+    {
+        foreach($data as $x => $x_value)
+            if(strlen($x)<$x_value)
+            {
+                $flag=1;
+                break;
+            }
+    }
+    return $flag==0?true:false;
+}
 function sendmail($to,$subject,$body){
     $mail = new PHPMailer(); // create a new object
     $mail->IsSMTP(); // enable SMTP

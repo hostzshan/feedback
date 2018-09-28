@@ -23,4 +23,22 @@ $.fn.ajaxReload= function(urltype,url,data){
             //handle error
         } 
     });
-} 
+}
+
+$.fn.zoption= function(){
+    var elem=this;
+    $(elem).on('click',function(){
+        var target=$(elem).data('target');
+        $(target).toggle();
+        
+        // var fragment=$(this).closest('ul').data('fragment');
+        // var module=fragment+'='+$(this).data(fragment);
+        // $('#'+fragment).ajaxReload("get",fragment,module);
+    });
+}
+$(window).on('click',function(event){
+    if($(event.target).closest(".z-optionbtn").length==0)
+    {
+      $(".z-optionbox").hide();
+    }
+  });

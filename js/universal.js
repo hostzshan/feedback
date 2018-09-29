@@ -3,9 +3,10 @@ $.fn.fragmentLoader=function(){
     $(elem).find('ul').children('li').on('click',function(){
         $(elem).find('ul').children('li').removeClass('active');
         $(this).addClass('active');
+        var requester=$(this).closest('ul').data('requester');
         var fragment=$(this).closest('ul').data('fragment');
         var module=fragment+'='+$(this).data(fragment);
-        $('#'+fragment).ajaxReload("get",fragment,module);
+        $('#'+fragment).ajaxReload("get",requester,module);
     });
   }
 $.fn.ajaxReload= function(urltype,url,data){

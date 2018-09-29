@@ -10,7 +10,9 @@ extract($_SESSION);
 // echo $usertype;
 // echo $username;
 //echo $approvet;
-	include "../php-front/".$usertype.'/approveT.php';
+foreach($_POST as $x => $x_value){
+	include "../php-front/".$usertype.'/'.$x.'.php';
+}
 }
 else{
 	header("location: ../index.php");

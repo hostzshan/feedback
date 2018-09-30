@@ -75,3 +75,25 @@ body{
     width: 100%;
     min-height: 1000px;
 }
+
+.z-optionbox{
+    /* display:none; */
+    float:left;
+    position: absolute;
+    z-index:5;
+    background-color: #ffffff;
+    color:#000000;
+    list-style:none;
+    padding:0px;
+    margin:0px;
+    box-shadow: 5px 5px 5px #888888;
+}
+.z-option{
+    padding:8px;
+    text-align:center;
+}
+.z-option:hover{
+    background-color:#d9534f;
+    color:#ffffff;
+    cursor:pointer;
+}

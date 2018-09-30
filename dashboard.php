@@ -1,15 +1,30 @@
 <?php
-$canvas_heading='Feedback and Grievance Management';
+$canvas_heading='Dashboard - Feedback and Grievance Management System';
 session_start();
-if(isset($_SESSION['usertype'])) { // if already login
-  header("location: dashboard.php");
+if(!isset($_SESSION['usertype'])) { // if already login
+  header("location: index.php");
 }
 else{
-  $usertype='n';
-  $nav_type='login';
-  $menu_heading='Login';
-  $menu_items=array('signin'=>'Sign In','register'=>'Request Access');
-  $canvas_paint=$usertype.'/signin.php';
+    extract($_SESSION);
+    $nav_type='login';
+    if($usertype=='a')
+    {
+        $menu_heading="Administrator";
+        $menu_items=array('approve'=>'Approve Users','accesscode'=>'Generate Access Code','create'=>'Create New User');
+        $canvas_paint=$usertype.'/approve.php';
+    }
+    else if($usertype=='s')
+    {
+        $menu_heading="Student";
+        $menu_items=array('feedback'=>'Feedback','past'=>'Past Feedback');
+        $canvas_paint=$usertype.'/feedback.php';
+    }
+    else if($usertype=='t')
+    {
+        $menu_heading="Faculty";
+        $menu_items=array('feedback'=>'View Feedback','past'=>'View Past Feedback');
+        $canvas_paint=$usertype.'/feedback.php';
+    }
 }
 
 ?>

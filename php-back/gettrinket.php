@@ -7,12 +7,15 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 $usertype='n';
 extract($_POST);
 extract($_SESSION);
-//$app_id=trim($username);	
-// echo $module;
 // echo $usertype;
 // echo $username;
+//echo $approvet;
 
-	include "../php-front/".$usertype.'/'.$module.'.php';
+reset($_POST);
+$first_key = key($_POST);
+
+include "../php-front/".$usertype.'/'.$first_key.'.php';
+
 }
 else{
 	header("location: ../index.php");

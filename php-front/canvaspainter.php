@@ -9,9 +9,9 @@
     <nav class="navbar z-menubar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Login</a>
+                <a class="navbar-brand" href="#"><?php echo $menu_heading;?></a>
             </div>
-            <ul class="nav navbar-nav" data-fragment="module">
+            <ul class="nav navbar-nav" data-requester='module' data-fragment="module">
                 <?php $c=0; foreach($menu_items as $x => $x_value) { ?>
                 <li class="<?php if($c++==0) echo 'active';?>" data-module="<?php echo $x;?>"><a href="javascript:void(0)"><?php echo $x_value; ?></a></li>
                 <?php } ?>

@@ -1,24 +1,21 @@
 <?php
+$query="SELECT access_code FROM regist WHERE username='$username'";
+$resultsum=mysqli_query($conn,$query);
+// echo $query;
+	if($row = $resultsum->fetch_assoc()){
+        extract($row);
+        // echo $access_code;
+        $query="SELECT access from cluster WHERE access_code='$access_code'";
+        // echo $query;
+        $resultgroup=mysqli_query($conn,$query);
+        if($row = $resultgroup->fetch_assoc()){
+            extract($row);
+            $query="SELECT feedback_code from access WHERE access='$access'";
+            // echo $query;
+            $resultaccess=mysqli_query($conn,$query);
+        }
+    }
 
-$query="SELECT feedback_code from access WHERE access_code='CSEb5b37d'";
-// echo $FILLteam;
-$resultaccess=mysqli_query($conn,$query);
-
-?>
-
-<?php
-
-
-extract($_SESSION);
-// $resultapp=mysqli_query($conn,"SELECT * FROM judge WHERE judge_id='$username' AND flageval2='N'");
-// $rowapp = $resultapp->fetch_assoc();
-
-//     $app_id=$rowapp['app_id'];
-
-//     $_SESSION['app_id']=$app_id;
-
-//     $resultsum=mysqli_query($conn,"SELECT * FROM student WHERE app_id='$app_id'");
-//     $row = $resultsum->fetch_assoc();
 ?>
 
 <div class="panel panel-info">

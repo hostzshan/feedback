@@ -20,7 +20,7 @@ $.fn.ajaxReload= function(urltype,url,data){
             //handle returned arrayList
         },
         error: function(e){  
-            alert("error");
+            alert("Server error");
             //handle error
         } 
     });

@@ -131,3 +131,7 @@ body{
     color:#ffffff;
     cursor:pointer;
 }
+.z-footer{
+    background-color: rgb(2, 40, 64);
+    color: rgb(255, 255, 255);
+}

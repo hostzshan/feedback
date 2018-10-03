@@ -25,7 +25,8 @@
         include 'php-front/'.$canvas_paint;
         ?>
     </div>
-    <div class="col-xs-12 text-center" style="position: absolute;bottom: 10px;">
+    <div class="z-background3"></div>
+    <div class="col-xs-12 z-background4">
         Application developed by Zeeshan Akhtar
     </div>
 </div>

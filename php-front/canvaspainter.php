@@ -26,7 +26,8 @@
         ?>
     </div>
     <div class="z-background3"></div>
-    <div class="col-xs-12 z-background4">
+    <div class="z-background4"></div>
+    <div class="col-xs-12 developer-text">
         Application developed by Zeeshan Akhtar
     </div>
 </div>

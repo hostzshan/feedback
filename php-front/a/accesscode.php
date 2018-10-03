@@ -40,18 +40,5 @@
 </form>
 
 <script>
-    $(".ajaxsubmitform").validator();
-    $(".ajaxsubmitform").on('submit',function(e) {
-        var formid=$(this).attr('id');//get this form's id
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-	    setTimeout(function(e){ //wait 50ms to allow validator to execute
-            // var data1=$("#"+formid).serialize()+"&flag"+formid+"=Y";
-	        // alert($("#"+formid).find('.has-error').length);//No of errors in the form
-            if($("#"+formid).find('.has-error').length==0) 
-            {
-                var data= $("#"+formid).serialize();
-                $('#response').ajaxReload("submit",formid,data);
-            }
-        }, 50);
-    });
+    $(".ajaxsubmitform").zform();
 </script>

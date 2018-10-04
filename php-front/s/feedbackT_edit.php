@@ -1,14 +1,14 @@
-<form role="form" action="javascript:void(0)" onsubmit="return false;" class="ajaxsubmitform" id="eval2" >
+<form role="form" action="javascript:void(0)" onsubmit="return false;" class="ajaxsubmitform" id="feedback" >
 <?php 
 $faculty_count=0;
 while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 {
     $param_count=0;
     ?>
-        <div class="row form-group">
+        <div class="row">
             <div class="col-sm-3">
-                <label class="col-sm-4 control-label text-primary"><?php echo $param_count==0?$faculty_ids['faculty_id']:''; ?></label>
-                <label class="col-sm-8 control-label"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
+                <label class="col-sm-4 text-primary"><?php echo $param_count==0?$faculty_ids['faculty_id']:''; ?></label>
+                <label class="col-sm-8"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
             </div>
             <div class="col-sm-9">
     <?php
@@ -17,7 +17,7 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 ?>
         
             
-            <div class="row">
+            <div class="row form-group">
                 <label for="faculty<?php echo $faculty_count.$param_count; ?>_score" class="col-sm-3 control-label text-muted" style="font-size:14px"><?php echo $feedback_param; ?></label>
                 <div class="col-sm-1">
                     <input id="faculty<?php echo $faculty_count.$param_count; ?>_score" name="faculty<?php echo $faculty_count.$param_count; ?>_score" type="text" pattern="[0-9]|10" class="form-control" required />
@@ -51,16 +51,19 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 ?>
 		<div class="row form-group">
 			<div class="col-sm-offset-5 col-sm-2">
-			     <button type="submit" class="btn btn-warning col-sm-8 col-sm-offset-2">
+			     <button type="submit" class="btn btn-info col-sm-8 col-sm-offset-2">
 					<span class="glyphicon glyphicon-floppy-disk"></span>
 					<br class="hidden-lg hidden-sm hidden-xs"></br>					
-					<span class="hidden-sm">Save and Next</span>
+					<span class="hidden-sm">Submit</span>
 				 </button>
 			</div>
         </div>
 </form>
+
+<div id="response"></div>
+
 <script>
-    $('#eval2').validator();
+    $('#feedback').zform();
     $('.scorer i').on('click',function(){
         var score=parseInt($(this).html());
         $(this).addClass("btn-danger");

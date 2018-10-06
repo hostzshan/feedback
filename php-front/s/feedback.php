@@ -1,25 +1,11 @@
 <?php
-$query="SELECT access_code FROM regist WHERE username='$username'";
-$resultsum=mysqli_query($conn,$query);
+$query="SELECT access.feedback_code FROM regist INNER JOIN cluster INNER JOIN access ON regist.access_code=cluster.access_code AND cluster.access=access.access WHERE regist.username='$username' and feedback_status='f'";
 // echo $query;
-	if($row = $resultsum->fetch_assoc()){
-        extract($row);
-        // echo $access_code;
-        $query="SELECT access from cluster WHERE access_code='$access_code'";
-        // echo $query;
-        $resultgroup=mysqli_query($conn,$query);
-        if($row = $resultgroup->fetch_assoc()){
-            extract($row);
-            $query="SELECT feedback_code from access WHERE access='$access' and feedback_status='f'";
-            // echo $query;
-            $resultaccess=mysqli_query($conn,$query);
-        }
-    }
-
+$resultaccess=mysqli_query($conn,$query);
 ?>
 
 <div class="panel panel-danger">
-	<div class="panel-heading" data-toggle="collapse" data-target="#available" style="font-size:150%;"><b>Available Feedbacks</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
+	<div class="panel-heading" data-toggle="collapse" data-target="#available" style="font-size:150%;"><b>Active</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse in one" id="available">
         <table class="table table-bordered table-striped">
             <thead>

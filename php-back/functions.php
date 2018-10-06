@@ -34,7 +34,7 @@ function updatedb($table,$data,$sno){
         $flag_update_statement = $stmt->execute()?$flag_update_statement+1:$flag_update_statement;
         $stmt->close();
     }
-    return $flag_update_statement==4?true:false;
+    return $flag_update_statement==sizeof($data)?true:false;
     $conn->close();
 }
 
@@ -85,7 +85,7 @@ function zencrypt($toencrypt){
     $code=bin2hex($bytes);
     $salt=intval($code,16);
     $partial1=zencrypthelper(substr($toencrypt,0,$length/2),$salt);
-    $partial2=zencrypthelper(substr($toencrypt,$length/2,$length/2),$salt);
+    $partial2=zencrypthelper(substr($toencrypt,$length/2),$salt);
     return $code.$partial1.$partial2;
 }
 

@@ -1,4 +1,7 @@
 <?php
+
+$feedback_params=array('Knowledge of Subject','Communication Skills','Quality and Availibity of Notes','Interaction with Students','Applied Knowledge');
+
 function realescape($arr){
     include "../php-back/".'connection.php';
     foreach($arr as $x => $x_value)

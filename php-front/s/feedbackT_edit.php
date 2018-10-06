@@ -60,6 +60,7 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 ++$faculty_count;
 }
 ?>
+<div id="response"></div>
 		<div class="row form-group">
 			<div class="col-sm-offset-5 col-sm-2">
 			     <button type="submit" class="btn btn-info col-sm-8 col-sm-offset-2">
@@ -71,18 +72,17 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
         </div>
 </form>
 
-<div id="response"></div>
 
 <script>
     $('#feedback').zform();
     $('.scorer i').on('click',function(){
         var score=parseInt($(this).html());
-        $(this).addClass("btn-danger");
+        $(this).addClass("btn-success");
         $(this).removeClass("btn-default");
-        $(this).prevUntil().removeClass("btn-danger");
+        $(this).prevUntil().removeClass("btn-success");
         $(this).prevUntil().addClass("btn-default");
         $(this).nextUntil().removeClass("btn-default");
-        $(this).nextUntil().addClass("btn-danger");
+        $(this).nextUntil().addClass("btn-success");
         var str=$(this).parent().data('qname');
         $('#'+str+'_score').val(score);
         $('#'+str+'_score').trigger('change');

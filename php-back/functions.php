@@ -77,6 +77,46 @@ function generateaccesscode($access){
     $code=bin2hex($bytes);
     return $access.$code;
 }
+
+
+function zencrypt($toencrypt){
+    $length=strlen($toencrypt);
+    $bytes = random_bytes(2);
+    $code=bin2hex($bytes);
+    $salt=intval($code,16);
+    $partial1=zencrypthelper(substr($toencrypt,0,$length/2),$salt);
+    $partial2=zencrypthelper(substr($toencrypt,$length/2,$length/2),$salt);
+    return $code.$partial1.$partial2;
+}
+
+function zencrypthelper($key,$salt){//Helper Fuction built by Zeeshan for encryption
+    $digit=intval(dechex($key),16);
+    $encoded=dechex($digit+$salt);
+    $len=strlen($encoded);
+    return $len.$encoded;
+}
+
+function zdecrypt($todecrypt){
+    $salt=substr($todecrypt,0,4);
+    $length_partial1=$todecrypt{4};
+    $partial1=substr($todecrypt,4+1,$length_partial1);
+    $length_partial2=$todecrypt{4+1+$length_partial1};
+    $partial2=substr($todecrypt,4+1+$length_partial1+1,$length_partial2);
+    // return "salt=".$salt." length_partial1=".$length_partial1." partial1=".$partial1." length_partial2=".$length_partial2." partial2=".$partial2;
+    $decodedpartial1=zdecrypthelper($partial1,$salt);
+    $decodedpartial2=zdecrypthelper($partial2,$salt);
+    return $decodedpartial1.$decodedpartial2;
+}
+
+function zdecrypthelper($key,$salt){
+    $diff=intval($key,16)-intval($salt,16);
+    if($diff<0)
+        $diff=intval($salt,16)-intval($key,16);
+    // return "salt ".$salt." key ".$key." diff ".$diff." decoded ".$decoded;
+    return $diff;
+}
+
+
 function sendmail($to,$subject,$body){
     $mail = new PHPMailer(); // create a new object
     $mail->IsSMTP(); // enable SMTP

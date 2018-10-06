@@ -1,16 +1,27 @@
+<?php include "../php-back/functions.php"; ?>
 <form role="form" action="javascript:void(0)" onsubmit="return false;" class="ajaxsubmitform" id="feedback" >
+<div class="form-group input-group has-warning">
+	<span class="input-group-addon">Feedback Code</span>
+    <input id="feedback_code" name="feedback_code" type="text" class="form-control text-center" value="<?php echo $feedback_code?>" readonly required />
+</div>
 <?php 
 $faculty_count=0;
 while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 {
     $param_count=0;
+    $faculty_id=$faculty_ids['faculty_id'];
     ?>
         <div class="row">
-            <div class="col-sm-3">
-                <label class="col-sm-4 text-primary"><?php echo $param_count==0?$faculty_ids['faculty_id']:''; ?></label>
-                <label class="col-sm-8"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
+            <div class="col-sm-4">
+                <label class="col-sm-6">
+                <?php
+                $faculty_name=getdescription('username',$faculty_id);
+                echo $param_count==0?$faculty_name:'';
+                ?>
+                </label>
+                <label class="col-sm-6 text-primary"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
     <?php
     foreach($feedback_params as $feedback_param)
     {
@@ -18,11 +29,11 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
         
             
             <div class="row form-group">
-                <label for="faculty<?php echo $faculty_count.$param_count; ?>_score" class="col-sm-3 control-label text-muted" style="font-size:14px"><?php echo $feedback_param; ?></label>
-                <div class="col-sm-1">
-                    <input id="faculty<?php echo $faculty_count.$param_count; ?>_score" name="faculty<?php echo $faculty_count.$param_count; ?>_score" type="text" pattern="[0-9]|10" class="form-control" required />
+                <label for="<?php echo $faculty_id.$param_count; ?>_score" class="col-sm-3 control-label text-muted" style="font-size:14px"><?php echo $feedback_param; ?></label>
+                <div class="col-sm-2">
+                    <input id="<?php echo $faculty_id.$param_count; ?>_score" name="<?php echo $faculty_id.$param_count; ?>_score" type="text" pattern="[0-9]|10" class="form-control" required />
                 </div>
-                <div class="col-sm-8 scorer" data-qname="faculty<?php echo $faculty_count.$param_count; ?>">
+                <div class="col-sm-7 scorer" data-qname="<?php echo $faculty_id.$param_count; ?>">
                         <i class="btn btn-default">10</i>
                         <i class="btn btn-default">9</i>
                         <i class="btn btn-default">8</i>
@@ -52,7 +63,7 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 		<div class="row form-group">
 			<div class="col-sm-offset-5 col-sm-2">
 			     <button type="submit" class="btn btn-info col-sm-8 col-sm-offset-2">
-					<span class="glyphicon glyphicon-floppy-disk"></span>
+					<span class="glyphicon glyphicon-paste"></span>
 					<br class="hidden-lg hidden-sm hidden-xs"></br>					
 					<span class="hidden-sm">Submit</span>
 				 </button>

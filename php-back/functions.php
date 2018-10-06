@@ -116,6 +116,22 @@ function zdecrypthelper($key,$salt){
     return $diff;
 }
 
+function getdescription($mode,$id){
+    include "../php-back/"."connection.php";
+    $flag=0;
+    if($mode == "username"){
+        $query="SELECT name from regist_info WHERE username='$id'";
+        // echo $query;
+        $descname="name";
+    }
+    $resultdesc=mysqli_query($conn,$query);
+    if($rowdesc = $resultdesc->fetch_assoc()){
+        return $rowdesc[$descname];
+    }
+    return 'Not found';
+    $conn->close();
+}
+
 
 function sendmail($to,$subject,$body){
     $mail = new PHPMailer(); // create a new object

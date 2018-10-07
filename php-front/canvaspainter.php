@@ -22,6 +22,7 @@
         <?php
         // $keys=array_keys($menu_items);
         // $canvas_paint=$menu_items[$keys[0]];
+        include 'php-back/functions.php';
         include 'php-front/'.$canvas_paint;
         ?>
     </div>

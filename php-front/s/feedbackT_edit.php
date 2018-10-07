@@ -15,7 +15,7 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
             <div class="col-sm-4">
                 <label class="col-sm-6">
                 <?php
-                $faculty_name=getdescription('username',$faculty_id);
+                $faculty_name=getdescription($conn,'username',$faculty_id);
                 echo $param_count==0?$faculty_name:'';
                 ?>
                 </label>

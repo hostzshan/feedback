@@ -119,20 +119,27 @@ function zdecrypthelper($key,$salt){
     return $diff;
 }
 
-function getdescription($mode,$id){
-    include "../php-back/"."connection.php";
+function getdescription($conn,$mode,$id){
     $flag=0;
     if($mode == "username"){
         $query="SELECT name from regist_info WHERE username='$id'";
         // echo $query;
         $descname="name";
+        $flag=1;
     }
-    $resultdesc=mysqli_query($conn,$query);
-    if($rowdesc = $resultdesc->fetch_assoc()){
-        return $rowdesc[$descname];
+    else if($mode == "feedback"){
+        $query="SELECT feedback_desc from access WHERE feedback_code='$id'";
+        // echo $query;
+        $descname="feedback_desc";
+        $flag=1;
+    }
+    if($flag==1){
+        $resultdesc=mysqli_query($conn,$query);
+        if($rowdesc = $resultdesc->fetch_assoc()){
+            return $rowdesc[$descname];
+        }
     }
     return 'Not found';
-    $conn->close();
 }
 
 

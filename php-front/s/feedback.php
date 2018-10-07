@@ -11,7 +11,7 @@ $resultaccess=mysqli_query($conn,$query);
             <thead>
                 <tr>
                     <th>S. No.</th>
-                    <th>Feedback Code</th>
+                    <th>Feedback Name</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -21,9 +21,12 @@ while($rowaccess = $resultaccess->fetch_assoc())
 {
 ?>
                 <tr>
-                    <?php $feedback_code = htmlspecialchars($rowaccess['feedback_code']);?>
+                    <?php
+                    $feedback_code = htmlspecialchars($rowaccess['feedback_code']);
+                    $feedback_desc = getdescription($conn,"feedback",$feedback_code);
+                    ?>
                     <td>1</td>
-                    <td><?php echo $feedback_code; ?></td>
+                    <td><?php echo $feedback_desc; ?></td>
                     <td class="playground">
                         <button type="submit" class="btn btn-danger z-optionbtn" data-target=".z-optionbox.z-i0" style="float:left;">
                             <span class="glyphicon glyphicon-cog"></span>

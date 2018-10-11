@@ -42,14 +42,17 @@ $.fn.zform=function(){
     });
 }
 $.fn.zoption= function(){
-    var elem=this;
-    $(elem).on('click',function(){
-        var target=$(elem).data('target');
-        $(target).toggle();
-        
-        // var fragment=$(this).closest('ul').data('fragment');
-        // var module=fragment+'='+$(this).data(fragment);
-        // $('#'+fragment).ajaxReload("get",fragment,module);
+    $(this).each(function(){
+        var elem=this;
+        $(elem).on('click',function(){
+            var target=$(elem).data('target');
+            // alert(target);
+            $(target).toggle();
+            
+            // var fragment=$(this).closest('ul').data('fragment');
+            // var module=fragment+'='+$(this).data(fragment);
+            // $('#'+fragment).ajaxReload("get",fragment,module);
+        });
     });
 }
 $(window).on('click',function(event){

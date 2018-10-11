@@ -142,6 +142,26 @@ function getdescription($conn,$mode,$id){
     return 'Not found';
 }
 
+function array_push_assoc($array, $key, $value){
+    $array[$key] = $value;
+    return $array;
+    }
+function getfeedbackdata($conn,$faculty_id,$feedback_code,$feedback_params){
+    $feedback_link=$faculty_id."/".$feedback_code;
+    $query="SELECT feedback_data from fb_data WHERE feedback_link='$feedback_link'";
+    $feedback_array=array();
+    $resultdata=mysqli_query($conn,$query);
+    $i=0;
+    if($rowdata = $resultdata->fetch_assoc()){
+         $rawdata=$rowdata['feedback_data'];
+         $decrypted=zdecrypt($rawdata);
+    }
+    foreach($feedback_params as $feedback_param){
+        $feedback_array[$feedback_param]=$decrypted{$i}+1;
+        $i++;
+    }
+    return $feedback_array;
+}
 
 function sendmail($to,$subject,$body){
     $mail = new PHPMailer(); // create a new object

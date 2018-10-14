@@ -1,5 +1,5 @@
 <?php
-$query="SELECT access.feedback_code FROM regist INNER JOIN cluster INNER JOIN access ON regist.access_code=cluster.access_code AND cluster.access=access.access WHERE regist.username='$username' and feedback_status='f'";
+$query="SELECT form_info.feedback_code FROM regist INNER JOIN cluster INNER JOIN form_info ON regist.access_code=cluster.access_code AND cluster.access=form_info.access WHERE regist.username='$username' and feedback_status='f'";
 // echo $query;
 $resultaccess=mysqli_query($conn,$query);
 ?>

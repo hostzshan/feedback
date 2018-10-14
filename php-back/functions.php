@@ -128,7 +128,7 @@ function getdescription($conn,$mode,$id){
         $flag=1;
     }
     else if($mode == "feedback"){
-        $query="SELECT feedback_desc from access WHERE feedback_code='$id'";
+        $query="SELECT feedback_desc from form_info WHERE feedback_code='$id'";
         // echo $query;
         $descname="feedback_desc";
         $flag=1;

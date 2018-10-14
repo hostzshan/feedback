@@ -68,7 +68,7 @@ include "php-back/"."connection.php"; //connect the connection page
   include 'php-front/footer.php'; 
 ?>
 <script>
-$( '.z-menubar' ).fragmentLoader();
+$( '.z-menubar' ).fragmentLoader('module');
 </script>
 </body>
 </html>

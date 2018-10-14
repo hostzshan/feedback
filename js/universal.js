@@ -1,4 +1,4 @@
-$.fn.fragmentLoader=function(){
+$.fn.fragmentLoader=function(mode){
     var elem=this;
     $(elem).find('ul').children('li').on('click',function(){
         $(elem).find('ul').children('li').removeClass('active');
@@ -6,7 +6,7 @@ $.fn.fragmentLoader=function(){
         var requester=$(this).closest('ul').data('requester');
         var fragment=$(this).closest('ul').data('fragment');
         var module=fragment+'='+$(this).data(fragment);
-        $('#'+fragment).ajaxReload("get",requester,module);
+        $('#'+mode).ajaxReload("get",requester,module);
     });
   }
 $.fn.ajaxReload= function(urltype,url,data){

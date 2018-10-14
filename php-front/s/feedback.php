@@ -49,8 +49,8 @@ while($rowaccess = $resultaccess->fetch_assoc())
 
 
 <div class="panel panel-danger">
-	<div class="panel-heading" data-toggle="collapse" data-target="#feedbackt" style="font-size:150%;"><b>Feedback Form</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
-	<div  class="panel-body collapse in one" id="feedbackt">
+	<div class="panel-heading" data-toggle="collapse" data-target="#trinket" style="font-size:150%;"><b>Feedback Form</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
+	<div  class="panel-body collapse in one" id="trinket">
 		
 	</div>
 </div>
@@ -58,7 +58,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
 
 <script>
     $(".z-optionbtn").zoption();
-    $(".playground").fragmentLoader();
+    $(".playground").fragmentLoader("trinket");
     
 </script>
 

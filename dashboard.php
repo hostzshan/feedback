@@ -10,19 +10,19 @@ else{
     if($usertype=='a')
     {
         $menu_heading="Administrator";
-        $menu_items=array('approve'=>'Approve Users','accesscode'=>'Generate Access Code','create'=>'Create New User');
-        $canvas_paint=$usertype.'/approve.php';
+        $menu_items=array('accesscode'=>'Access Codes','form'=>'Feedback Forms','create'=>'Create New User','approve'=>'Users');
+        $canvas_paint=$usertype.'/accesscode.php';
     }
     else if($usertype=='s')
     {
         $menu_heading="Student";
-        $menu_items=array('feedback'=>'Feedback','past'=>'Past Feedback');
+        $menu_items=array('feedback'=>'Active','inactive'=>'Inactive','past'=>'Closed');
         $canvas_paint=$usertype.'/feedback.php';
     }
     else if($usertype=='t')
     {
         $menu_heading="Faculty";
-        $menu_items=array('feedback'=>'View Feedback','past'=>'View Past Feedback');
+        $menu_items=array('feedback'=>'Active','inactive'=>'Inactive','past'=>'Closed');
         $canvas_paint=$usertype.'/feedback.php';
     }
 }

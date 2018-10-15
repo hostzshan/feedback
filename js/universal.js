@@ -47,6 +47,14 @@ $.fn.zformmultisubmit=function(){
         $(elem).on('click',function(){
             var action=$(this).data('action');
             var parameter=$(this).data('parameter');
+            // var args="";
+            $(this).siblings('input').each(function(){
+                var arg_name=$(this).data('name');
+                var arg_value=$(this).val();
+                // args+="&"+arg_name+"="+arg_value;
+                // alert(args);
+                $("#"+arg_name).val(arg_value);
+            });
             // alert(parameter);
             var formid=$(this).data('formid');
             $("#action").val(action);

@@ -59,8 +59,8 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                                 <?php } ?>
                             </div>
                         </div>
-                        <div class="col-sm-2 btn btn-default">
-                            <?php echo $feedback_data_total[$feedback_param]; ?>
+                        <div class="col-sm-2">
+                            <div class="form-control"><?php echo $feedback_data_total[$feedback_param]; ?></div>
                         </div>
                 </div>
             </div>

@@ -41,6 +41,21 @@ $.fn.zform=function(){
         }, 50);
     });
 }
+$.fn.zformmultisubmit=function(){
+    $(this).each(function(){
+        var elem=this;
+        $(elem).on('click',function(){
+            var action=$(this).data('action');
+            var parameter=$(this).data('parameter');
+            // alert(parameter);
+            var formid=$(this).data('formid');
+            $("#action").val(action);
+            $("#parameter").val(parameter);
+            $("#"+formid).trigger('submit');
+        });
+    });
+    
+}
 $.fn.zoption= function(){
     $(this).each(function(){
         var elem=this;

@@ -87,10 +87,68 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	</div>
 </div>
 
+<div class="panel panel-danger">
+	<div class="panel-heading" data-toggle="collapse" data-target="#formeditor" style="font-size:150%;"><b>Feedback Form Editor - Manual</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
+	<div  class="panel-body collapse in one" id="formeditor">
+	    <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal" id="faculty" >
+            <div class="row form-group">
+	            <label for="control" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Feedback Code</label>
+	            <div class="col-sm-10">
+                    <select class="form-control" id="control" name="control" required>
+	        			<option value="">--Select--</option>
+                        <?php 
+                        
+                        $resultaccess->data_seek(0);
+                        
+                        while($rowforms = $resultaccess->fetch_assoc())
+                        { 
+                            $feedback_code = htmlspecialchars($rowforms['feedback_code']);
+                            $feedback_desc = getdescription($conn,"feedback",$feedback_code);
+                        ?>
+	        			<option value="<?php echo $feedback_code; ?>"><?php echo $feedback_desc; ?></option>
+	        			<?php } ?>
+	        		</select>
+	        	</div>
+	        </div>
+	        <div class="row form-group">
+	        	<label for="parameter" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Faculty</label>
+	        	<div class="col-sm-10">
+                    <select class="form-control" id="parameter" name="parameter" required>
+	        			<option value="">--Select--</option>
+                        <?php 
+                        $query="SELECT username from regist WHERE usertype='t'";
+                        // echo $query;
+                        $resultfaculties=mysqli_query($conn,$query);
+                        while($rowfaculties = $resultfaculties->fetch_assoc())
+                        { 
+                            $faculty_id = htmlspecialchars($rowfaculties['username']);
+                            $faculty_desc = getdescription($conn,"username",$faculty_id);
+                        ?>
+	        			<option value="<?php echo $faculty_id; ?>"><?php echo $faculty_desc; ?></option>
+	        			<?php } ?>
+	        		</select>
+	        	</div>
+	        </div>
+	        <div class="row form-group">
+	        	<label for="action" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Action</label>
+	        	<div class="col-sm-10">
+	        		<input id="action" name="action" type="text" class="form-control" />
+	        	</div>
+	        </div>
+            <div class="row form-group">
+                <button type="submit" class="col-sm-2 col-sm-offset-5 btn btn-danger">
+                    <span class="glyphicon glyphicon-send"></span> Submit
+                </button>
+            </div>
+        </form>
+        <div id="response"></div>	
+	</div>
+</div>
+
 
 <script>
     $(".z-optionbtn").zoption();
     $(".playground").fragmentLoader("trinket");
-    
+    $("#faculty").zform();
 </script>
 

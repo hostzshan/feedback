@@ -20,14 +20,15 @@ while($rowform = $resultform->fetch_assoc())
             <tr>
                 <?php
                 $faculty_id = htmlspecialchars($rowform['faculty_id']);
-                $faculty_desc = getdescription($conn,"username",$faculty_id);
+                $faculty_name = getdescription($conn,"username",$faculty_id);
+                $faculty_desc = getfielddetail($conn,"faculty",$feedback_code,$faculty_id);
                 ?>
                 <td><?php echo $i++; ?></td>
-                <td><?php echo $faculty_id; ?></td>
+                <td><?php echo $faculty_name; ?></td>
                 <td>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Description" data-name="faculty_desc" value="<?php echo $faculty_desc; ?>" >
-                        <span data-action="edit" data-parameter="<?php echo $faculty_id; ?>" data-formid="faculty" type="submit" class="input-group-addon zmultisubmit">
+                        <span class="input-group-addon zmultisubmit" style="cursor:pointer;" type="submit" data-action="edit" data-parameter="<?php echo $faculty_id; ?>" data-formid="faculty">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </span>
                     </div>

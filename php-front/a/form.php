@@ -1,11 +1,11 @@
 <?php
-$query="SELECT form_info.feedback_code FROM regist INNER JOIN access INNER JOIN form_info ON regist.access_code=access.access_code AND access.feedback_code=form_info.feedback_code WHERE regist.username='$username'";
+$query="SELECT feedback_code FROM form_info ORDER BY created";
 // echo $query;
 $resultaccess=mysqli_query($conn,$query);
 ?>
 
 <div class="panel panel-danger">
-	<div class="panel-heading" data-toggle="collapse" data-target="#available" style="font-size:150%;"><b>Active</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
+	<div class="panel-heading" data-toggle="collapse" data-target="#available" style="font-size:150%;"><b>Feedback Forms</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse in one" id="available">
         <table class="table table-bordered table-striped">
             <thead>

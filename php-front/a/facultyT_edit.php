@@ -25,9 +25,12 @@ while($rowform = $resultform->fetch_assoc())
                 <td><?php echo $i++; ?></td>
                 <td><?php echo $faculty_id; ?></td>
                 <td>
-                <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" data-formid="faculty" >
-                    <?php echo $faculty_desc; ?>
-                </form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Description" data-name="faculty_desc" value="<?php echo $faculty_desc; ?>" >
+                        <span data-action="edit" data-parameter="<?php echo $faculty_id; ?>" data-formid="faculty" type="submit" class="input-group-addon zmultisubmit">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </span>
+                    </div>
                 </td>
                 <td>
                     <button data-action="delete" data-parameter="<?php echo $faculty_id; ?>" data-formid="faculty" type="submit" class="btn btn-danger zmultisubmit">
@@ -40,7 +43,7 @@ while($rowform = $resultform->fetch_assoc())
 ?>
 		<tr>
 			<td colspan="10">
-				<button type="button" onclick="addmem(this)" name="" value="" class="btn btn-xs col-xs-12 btn-info" >
+                <button data-action="add" data-parameter="<?php echo $faculty_id; ?>" data-formid="faculty" type="submit" class="btn btn-xs btn-danger zmultisubmit">
 					<span class="glyphicon glyphicon-plus"></span>
 					<span>Add New</span>
 				</button>			

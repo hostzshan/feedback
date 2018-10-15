@@ -141,6 +141,28 @@ function getdescription($conn,$mode,$id){
     }
     return 'Not found';
 }
+function getfielddetail($conn,$mode,$id1,$id2){
+    $flag=0;
+    if($mode == "faculty"){
+        $query="SELECT faculty_desc from form WHERE feedback_code='$id1' AND faculty_id='$id2'";
+        // echo $query;
+        $descname="faculty_desc";
+        $flag=1;
+    }
+    else if($mode == "feedback"){
+        $query="SELECT feedback_desc from form_info WHERE feedback_code='$id'";
+        // echo $query;
+        $descname="feedback_desc";
+        $flag=1;
+    }
+    if($flag==1){
+        $resultdesc=mysqli_query($conn,$query);
+        if($rowdesc = $resultdesc->fetch_assoc()){
+            return $rowdesc[$descname];
+        }
+    }
+    return 'Not found';
+}
 
 function array_push_assoc($array, $key, $value){
     $array[$key] = $value;

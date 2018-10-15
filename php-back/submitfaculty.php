@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             $data=array('feedback_code'=>$control,'faculty_id'=>$parameter);
             // errordisplay($error_main,'Deletion disabled.');//Enable this to close deletion during development
             if(deletefromdb('form',$data))
-                successdisplay($succes_main,'Deleted feild from this form.');
+                successdisplay($success_main,'Deleted feild from this form.');
             else
                 errordisplay($error_main,'Server Error, please try again later.');
         }

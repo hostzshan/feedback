@@ -71,7 +71,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
 						<button type="button" onclick="addmem(this)" name="" value="" class="btn btn-xs col-xs-12 btn-info" >
 							<span class="glyphicon glyphicon-plus"></span>
 							<span>Add New</span>
-						</button>			
+						</button>
 					</td>
 				</tr>
             </tbody>
@@ -89,10 +89,10 @@ while($rowaccess = $resultaccess->fetch_assoc())
 
 <div class="panel panel-danger">
 	<div class="panel-heading" data-toggle="collapse" data-target="#formeditor" style="font-size:150%;"><b>Feedback Form Editor - Manual</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
-	<div  class="panel-body collapse in one" id="formeditor">
+	<div  class="panel-body collapse one" id="formeditor">
 	    <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal" id="faculty" >
             <div class="row form-group">
-	            <label for="control" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Feedback Code</label>
+	            <label for="control" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Feedback</label>
 	            <div class="col-sm-10">
                     <select class="form-control" id="control" name="control" required>
 	        			<option value="">--Select--</option>
@@ -130,9 +130,20 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	        	</div>
 	        </div>
 	        <div class="row form-group">
+	        	<label for="faculty_desc" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Faculty Description</label>
+	        	<div class="col-sm-10">
+                    <input type=text class="form-control" id="faculty_desc" name="faculty_desc">
+	        	</div>
+	        </div>
+	        <div class="row form-group">
 	        	<label for="action" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Action</label>
 	        	<div class="col-sm-10">
-	        		<input id="action" name="action" type="text" class="form-control" />
+                    <select class="form-control" id="action" name="action" required>
+	        			<option value="">--Select--</option>
+	        			<option value="delete">Delete</option>
+	        			<option value="add">Add</option>
+	        			<option value="edit">Edit</option>
+	        		</select>
 	        	</div>
 	        </div>
             <div class="row form-group">

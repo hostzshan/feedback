@@ -22,32 +22,46 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 <?php
     foreach($feedback_params as $feedback_param)
     {
+        $feedback_max_score=0;
         if (array_key_exists($feedback_param, $feedback_data_total)) {
+            $feedback_max_score=10;
             $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data_total[$feedback_param]+$feedback_data[$feedback_param]);
         }
         else{
+            $feedback_max_score+=10;
             $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data[$feedback_param]);
         }
 ?>
             <div class="row form-group">
                 <label class="col-sm-3 control-label text-muted" style="font-size:14px"><?php echo $feedback_param; ?></label>
                 <div class="col-sm-9">
-                    
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info" id="appid_sent" role="progressbar" style="width:34%;">
-                                Sent Successfully: 0/0
-                            </div>
-                            <div class="progress-bar progress-bar-warning" id="appid_exists" role="progressbar" style="width:33%;">
-                                Already Exists: 0/0
-                            </div>
-                            <div class="progress-bar progress-bar-danger" id="appid_error" role="progressbar" style="width:33%;">
-                                Network Error: 0/0
-                            </div>
-                            <div class="progress-bar progress-bar-danger" id="appid_error" role="progressbar" style="width:100%;">
-                                Select a manager and applications to send
+                        <div class="col-sm-10">
+                            <div class="progress">
+                                <?php if($feedback_data_total[$feedback_param]>=$feedback_max_score*0.8){ ?>
+                                <div class="progress-bar progress-bar-info" id="appid_sent" role="progressbar" style="width:<?php echo $feedback_data_total[$feedback_param]/$feedback_max_score*100; ?>%;">
+                                    <?php echo $feedback_data_total[$feedback_param]; ?>/<?php echo $feedback_max_score; ?>
+                                </div>
+                                <?php }
+                                else if($feedback_data_total[$feedback_param]>=$feedback_max_score*0.6){ ?>
+                                <div class="progress-bar progress-bar-warning" id="appid_sent" role="progressbar" style="width:<?php echo $feedback_data_total[$feedback_param]/$feedback_max_score*100; ?>%;">
+                                    <?php echo $feedback_data_total[$feedback_param]; ?>/<?php echo $feedback_max_score; ?>
+                                </div>
+                                <?php }
+                                else if($feedback_data_total[$feedback_param]<$feedback_max_score*0.6){ ?>
+                                <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:<?php echo $feedback_data_total[$feedback_param]/$feedback_max_score*100; ?>%;">
+                                    <?php echo $feedback_data_total[$feedback_param]; ?>/<?php echo $feedback_max_score; ?>
+                                </div>
+                                <?php }
+                                else {?>
+                                <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:100%;">
+                                    <?php echo 'Server Error'; ?>
+                                </div>
+                                <?php } ?>
                             </div>
                         </div>
-                    
+                        <div class="col-sm-2 btn btn-default">
+                            <?php echo $feedback_data_total[$feedback_param]; ?>
+                        </div>
                 </div>
             </div>
                 

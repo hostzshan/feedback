@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         extract($_POST);//get all post parameters
         extract($_SESSION);
         $flag=0;
-        $resfeedbackfound=mysqli_query($conn,"SELECT access.feedback_code FROM regist INNER JOIN cluster INNER JOIN access ON regist.access_code=cluster.access_code AND cluster.access=access.access WHERE regist.username='$username' AND access.feedback_code='$feedback_code' ");
+        $resfeedbackfound=mysqli_query($conn,"SELECT form.feedback_code FROM regist INNER JOIN access INNER JOIN form ON regist.access_code=access.access_code AND access.feedback_code=form.feedback_code WHERE regist.username='$username' AND access.feedback_code='$feedback_code' ");
         if($rowstream = $resfeedbackfound->fetch_assoc()){
             $query="SELECT faculty_id FROM form WHERE feedback_code='$feedback_code'";
             $resfaculty=mysqli_query($conn,$query);

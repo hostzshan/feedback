@@ -87,6 +87,8 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	</div>
 </div>
 
+<div id="response"></div>
+
 <div class="panel panel-danger">
 	<div class="panel-heading" data-toggle="collapse" data-target="#formeditor" style="font-size:150%;"><b>Feedback Form Editor - Manual</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse one" id="formeditor">
@@ -152,7 +154,6 @@ while($rowaccess = $resultaccess->fetch_assoc())
                 </button>
             </div>
         </form>
-        <div id="response"></div>	
 	</div>
 </div>
 

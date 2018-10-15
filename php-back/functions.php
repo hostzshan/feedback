@@ -40,9 +40,31 @@ function updatedb($table,$data,$sno){
     return $flag_update_statement==sizeof($data)?true:false;
     $conn->close();
 }
+function deletefromdb($table,$data){
+    include "../php-back/".'connection.php';
+    $query1 = "DELETE FROM $table";//permanent delete
+    $query = "SELECT sno FROM $table";//temporary delete
+    $i=0;
+    foreach($data as $x => $x_value){
+        // echo $x."\n";
+        // echo $x_value."\n";
+        $query.=$i++==0?" WHERE ":" AND ";
+        $query.=$x."='$x_value'";
+    }
+    $result=mysqli_query($conn,$query);
+    if($row = $result->fetch_assoc()){
+        $sno=$row['sno'];
+        return updatedb($table,array('feedback_code'=>$data['feedback_code'].'_deleted','faculty_id'=>$data['faculty_id'].'_deleted'),$sno)?true:false;
+    }
+    return false;
+    $conn->close();
+}
 
 function errordisplay($error_main,$error_desc){
     echo '<div class="alert alert-danger"><strong>'.$error_main.'!</strong> '.$error_desc.'</div>';
+}
+function successdisplay($success_main,$success_desc){
+    echo '<div class="alert alert-info"><strong>'.$success_main.'!</strong> '.$success_desc.'</div>';
 }
 function inputvalidate($mode,$data){
     $flag=0;

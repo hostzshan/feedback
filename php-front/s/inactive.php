@@ -1,5 +1,5 @@
 <?php
-$query="SELECT form_info.feedback_code FROM regist INNER JOIN access INNER JOIN form_info ON regist.access_code=access.access_code AND access.feedback_code=form_info.feedback_code WHERE regist.username='$username' and feedback_status='c'";
+$query="SELECT form_info.feedback_code FROM regist INNER JOIN access INNER JOIN form_info ON regist.access_code=access.access_code AND access.feedback_code=form_info.feedback_code WHERE regist.username='$username' and feedback_status='n'";
 // echo $query;
 $resultaccess=mysqli_query($conn,$query);
 ?>
@@ -33,8 +33,8 @@ while($rowaccess = $resultaccess->fetch_assoc())
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
                             <ul class="z-optionbox z-i0" data-requester='trinket' data-fragment='feedbackt' style="display:none;">
+                                <li class="z-option" data-feedbackt="edit&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Edit</li>
                                 <li class="z-option" data-feedbackt="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
-                                <li class="z-option" data-feedbackt="insights&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Insights</li>
                             </ul>
                         </div>
                     </td>

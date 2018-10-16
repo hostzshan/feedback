@@ -44,7 +44,6 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                         <i class="btn btn-default">3</i>
                         <i class="btn btn-default">2</i>
                         <i class="btn btn-default">1</i>
-                        <i class="btn btn-default">0</i>
                 </div>
             </div>
                 

@@ -1,7 +1,7 @@
 <?php
 function validate($data)
 {
-extract($_POST);
+extract($data);
 if( !inputvalidate('exact-length',array($univ_roll=>10)) )
     return 'University roll incorrect length, please input 10 characters.';
 if( !inputvalidate('min-length',array($pass=>6)) )

@@ -1,13 +1,14 @@
 <?php
 
-$feedback_params=array('Knowledge of Subject','Communication Skills','Quality and Availibity of Notes','Interaction with Students','Applied Knowledge');
+// $feedback_params=array('Knowledge of Subject','Communication Skills','Quality and Availibity of Notes','Interaction with Students','Applied Knowledge');
+$feedback_params=array('Provides support for all students','Positive attitude on a daily basis','Presents the information in a way that is easy  to understand','Motivates me to give my best effort','Encourages student feedback','Takes the time to assist individual students that need help','I am able to ask for assistance without fear of rejection or embarrassment','Focuses on stopping unwanted behavior for the majority of the class period');
 
 function realescape($arr){
     include "../php-back/".'connection.php';
     foreach($arr as $x => $x_value)
     {
         $arr[$x]=mysqli_real_escape_string($conn, $x_value);
-        // Get rid of any newline characters in $string.
+        // Get rid of any newline characters in $x_value.
         $arr[$x] = str_replace(PHP_EOL, '', $x_value);
     }
     return $arr;
@@ -43,18 +44,20 @@ function updatedb($table,$data,$sno){
 function deletefromdb($table,$data){
     include "../php-back/".'connection.php';
     $query1 = "DELETE FROM $table";//permanent delete
-    $query = "SELECT sno FROM $table";//temporary delete
+    $query = "SELECT sno FROM ".$table;//temporary delete
     $i=0;
     foreach($data as $x => $x_value){
         // echo $x."\n";
         // echo $x_value."\n";
         $query.=$i++==0?" WHERE ":" AND ";
         $query.=$x."='$x_value'";
+        $data[$x]=$x_value."_deleted";
     }
+    // echo $query;
     $result=mysqli_query($conn,$query);
     if($row = $result->fetch_assoc()){
         $sno=$row['sno'];
-        return updatedb($table,array('feedback_code'=>$data['feedback_code'].'_deleted','faculty_id'=>$data['faculty_id'].'_deleted'),$sno)?true:false;
+        return updatedb($table,$data,$sno)?true:false;
     }
     return false;
     $conn->close();
@@ -90,6 +93,15 @@ function inputvalidate($mode,$data){
     {
         foreach($data as $x => $x_value)
             if(strlen($x)<$x_value)
+            {
+                $flag=1;
+                break;
+            }
+    }
+    else if($mode=='max-value')
+    {
+        foreach($data as $x => $x_value)
+            if($x>$x_value)
             {
                 $flag=1;
                 break;
@@ -155,6 +167,12 @@ function getdescription($conn,$mode,$id){
         $descname="feedback_desc";
         $flag=1;
     }
+    else if($mode == "access_code"){
+        $query="SELECT access_code_desc from cluster WHERE access_code='$id'";
+        // echo $query;
+        $descname="access_code_desc";
+        $flag=1;
+    }
     if($flag==1){
         $resultdesc=mysqli_query($conn,$query);
         if($rowdesc = $resultdesc->fetch_assoc()){
@@ -190,18 +208,41 @@ function array_push_assoc($array, $key, $value){
     $array[$key] = $value;
     return $array;
     }
-function getfeedbackdata($conn,$faculty_id,$feedback_code,$feedback_params){
+function getconsolidatedfbdata($conn,$faculty_id,$feedback_code,$feedback_params){
     $feedback_link=$faculty_id."/".$feedback_code;
-    $query="SELECT feedback_data from fb_data WHERE feedback_link='$feedback_link'";
+    $query="SELECT feedback_key from fb_data WHERE feedback_link='$feedback_link'";
+    $resultdata=mysqli_query($conn,$query);
+    $feedback_data_total=array();
+    while($rowdata = $resultdata->fetch_assoc()){
+        $feedback_data=getfeedbackdata($conn,$faculty_id,$feedback_code,$rowdata['feedback_key'],$feedback_params);
+        foreach($feedback_params as $feedback_param)
+        {
+            $feedback_max_score=0;
+            if (array_key_exists($feedback_param, $feedback_data_total)) {
+                $feedback_max_score=10;
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data_total[$feedback_param]+$feedback_data[$feedback_param]);
+            }
+            else{
+                $feedback_max_score+=10;
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data[$feedback_param]);
+            }
+        }
+    }
+    return $feedback_data_total;
+}
+function getfeedbackdata($conn,$faculty_id,$feedback_code,$feedback_key,$feedback_params){
+    $feedback_link=$faculty_id."/".$feedback_code;
+    $query="SELECT feedback_data from fb_data WHERE feedback_link='$feedback_link' AND feedback_key='$feedback_key'";
     $feedback_array=array();
     $resultdata=mysqli_query($conn,$query);
     $i=0;
+    $decrypted="";
     if($rowdata = $resultdata->fetch_assoc()){
          $rawdata=$rowdata['feedback_data'];
          $decrypted=zdecrypt($rawdata);
     }
     foreach($feedback_params as $feedback_param){
-        $feedback_array[$feedback_param]=$decrypted{$i}+1;
+        $feedback_array[$feedback_param]=($i<strlen($decrypted)?$decrypted{$i}:-1)+1;
         $i++;
     }
     return $feedback_array;

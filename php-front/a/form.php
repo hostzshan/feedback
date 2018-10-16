@@ -57,7 +57,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
                             <ul class="z-optionbox z-i2" data-requester='trinket' data-fragment='formt' style="display:none;">
-                                <li class="z-option" data-formt="edit&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Edit</li>
+                                <li class="z-option" data-formt="delete&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Delete</li>
                                 <li class="z-option" data-formt="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
                             </ul>
                         </div>
@@ -92,23 +92,12 @@ while($rowaccess = $resultaccess->fetch_assoc())
 <div class="panel panel-danger">
 	<div class="panel-heading" data-toggle="collapse" data-target="#formeditor" style="font-size:150%;"><b>Feedback Form Editor - Manual</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse one" id="formeditor">
-	    <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal" id="faculty" >
+	    <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal" id="multiform" >
             <div class="row form-group">
 	            <label for="control" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Feedback</label>
 	            <div class="col-sm-10">
                     <select class="form-control" id="control" name="control" required>
-	        			<option value="">--Select--</option>
-                        <?php 
-                        
-                        $resultaccess->data_seek(0);
-                        
-                        while($rowforms = $resultaccess->fetch_assoc())
-                        { 
-                            $feedback_code = htmlspecialchars($rowforms['feedback_code']);
-                            $feedback_desc = getdescription($conn,"feedback",$feedback_code);
-                        ?>
-	        			<option value="<?php echo $feedback_code; ?>"><?php echo $feedback_desc; ?></option>
-	        			<?php } ?>
+                        <?php include 'frag_form_drop.php';?>
 	        		</select>
 	        	</div>
 	        </div>
@@ -116,18 +105,8 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	        	<label for="parameter" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Faculty</label>
 	        	<div class="col-sm-10">
                     <select class="form-control" id="parameter" name="parameter" required>
-	        			<option value="">--Select--</option>
-                        <?php 
-                        $query="SELECT username from regist WHERE usertype='t'";
-                        // echo $query;
-                        $resultfaculties=mysqli_query($conn,$query);
-                        while($rowfaculties = $resultfaculties->fetch_assoc())
-                        { 
-                            $faculty_id = htmlspecialchars($rowfaculties['username']);
-                            $faculty_desc = getdescription($conn,"username",$faculty_id);
-                        ?>
-	        			<option value="<?php echo $faculty_id; ?>"><?php echo $faculty_desc; ?></option>
-	        			<?php } ?>
+	        			<?php include 'frag_field_drop.php';?>
+	        			<?php include 'frag_access_drop.php';?>
 	        		</select>
 	        	</div>
 	        </div>
@@ -135,6 +114,16 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	        	<label for="faculty_desc" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Faculty Description</label>
 	        	<div class="col-sm-10">
                     <input type=text class="form-control" id="faculty_desc" name="faculty_desc">
+	        	</div>
+	        </div>
+	        <div class="row form-group">
+	        	<label for="type" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Action Type</label>
+	        	<div class="col-sm-10">
+                    <select class="form-control" id="type" name="type" required>
+	        			<option value="">--Select--</option>
+	        			<option value="faculty">Field/Faculty</option>
+	        			<option value="access">Group/Access</option>
+	        		</select>
 	        	</div>
 	        </div>
 	        <div class="row form-group">
@@ -161,6 +150,6 @@ while($rowaccess = $resultaccess->fetch_assoc())
 <script>
     $(".z-optionbtn").zoption();
     $(".playground").fragmentLoader("trinket");
-    $("#faculty").zform();
+    $("#multiform").zform();
 </script>
 

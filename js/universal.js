@@ -56,10 +56,11 @@ $.fn.zformmultisubmit=function(){
                 $("#"+arg_name).val(arg_value);
             });
             // alert(parameter);
-            var formid=$(this).data('formid');
+            var type=$(this).data('type');
+            $("#type").val(type);
             $("#action").val(action);
             $("#parameter").val(parameter);
-            $("#"+formid).trigger('submit');
+            $("#multiform").trigger('submit');
         });
     });
     

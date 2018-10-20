@@ -36,15 +36,14 @@ while($rowaccess = $resultaccess->fetch_assoc())
 ?>
 		<tr>
 			<td colspan="10">
-                <div class="col-sm-10">
+                <div class="input-group">
                     <select data-name="access_code" class="form-control">
-	        	    	<?php include 'frag_access_drop.php';?>
+	        	        <?php include 'frag_access_drop.php';?>
 	        	    </select>
+                    <span data-action="add" data-parameter="new" data-type="access" type="submit" class="input-group-addon btn btn-danger zmultisubmit">
+                        <span class="glyphicon glyphicon-plus"></span> Add New
+				    </span>			
                 </div>
-                <button data-action="add" data-parameter="<?php echo $faculty_id; ?>" data-type="access" type="submit" class="col-sm-2 btn btn-danger zmultisubmit">
-                    <span class="glyphicon glyphicon-plus"></span>
-					<span>Add New</span>
-				</button>			
 			</td>
 		</tr>
     </tbody>

@@ -1,7 +1,7 @@
 <?php
 
-// $feedback_params=array('Knowledge of Subject','Communication Skills','Quality and Availibity of Notes','Interaction with Students','Applied Knowledge');
-$feedback_params=array('Provides support for all students','Positive attitude on a daily basis','Presents the information in a way that is easy  to understand','Motivates me to give my best effort','Encourages student feedback','Takes the time to assist individual students that need help','I am able to ask for assistance without fear of rejection or embarrassment','Focuses on stopping unwanted behavior for the majority of the class period');
+$feedback_params=array('Knowledge of Subject','Communication Skills','Positive attitude on a daily basis','Presents the information in a way that is easy  to understand','Interaction with Students','Applied Knowledge');
+// $feedback_params=array('Provides support for all students','Positive attitude on a daily basis','Presents the information in a way that is easy  to understand','Motivates me to give my best effort','Encourages student feedback','Takes the time to assist individual students that need help','I am able to ask for assistance without fear of rejection or embarrassment','Focuses on stopping unwanted behavior for the majority of the class period');
 
 function realescape($arr){
     include "../php-back/".'connection.php';
@@ -43,8 +43,8 @@ function updatedb($table,$data,$sno){
 }
 function deletefromdb($table,$data){
     include "../php-back/".'connection.php';
-    $query1 = "DELETE FROM $table";//permanent delete
-    $query = "SELECT sno FROM ".$table;//temporary delete
+    $query = "DELETE FROM ".$table;//permanent delete
+    $query1 = "SELECT sno FROM ".$table;//temporary delete
     $i=0;
     foreach($data as $x => $x_value){
         // echo $x."\n";
@@ -55,11 +55,11 @@ function deletefromdb($table,$data){
     }
     // echo $query;
     $result=mysqli_query($conn,$query);
-    if($row = $result->fetch_assoc()){
-        $sno=$row['sno'];
-        return updatedb($table,$data,$sno)?true:false;
-    }
-    return false;
+    // if($row = $result->fetch_assoc()){
+    //     $sno=$row['sno'];
+    //     return updatedb($table,$data,$sno)?true:false;
+    // }
+    return $result;
     $conn->close();
 }
 
@@ -212,19 +212,37 @@ function getconsolidatedfbdata($conn,$faculty_id,$feedback_code,$feedback_params
     $feedback_link=$faculty_id."/".$feedback_code;
     $query="SELECT feedback_key from fb_data WHERE feedback_link='$feedback_link'";
     $resultdata=mysqli_query($conn,$query);
-    $feedback_data_total=array();
+    $feedback_data_total=array('n'=>0,'y-max'=>10,'good'=>8,'good-n'=>0,'average'=>6,'average-n'=>0,'bad-n'=>0,'total'=>0);
     while($rowdata = $resultdata->fetch_assoc()){
+        $feedback_data_total['n']++;
+        
         $feedback_data=getfeedbackdata($conn,$faculty_id,$feedback_code,$rowdata['feedback_key'],$feedback_params);
+        
         foreach($feedback_params as $feedback_param)
         {
-            $feedback_max_score=0;
+            $current_value=$feedback_data[$feedback_param];
+            $good_n=0;
+            $average_n=0;
+            $bad_n=0;
+            if($current_value>=$feedback_data_total['good'])
+                $good_n++;
+            else if($current_value>=$feedback_data_total['average'])
+                $average_n++;
+            else
+                $bad_n++;
             if (array_key_exists($feedback_param, $feedback_data_total)) {
-                $feedback_max_score=10;
-                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data_total[$feedback_param]+$feedback_data[$feedback_param]);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data_total[$feedback_param]+$current_value);
+                $feedback_data_total=array_push_assoc($feedback_data_total,'total',$feedback_data_total['total']+$current_value);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'good-n',$feedback_data_total[$feedback_param.'good-n']+$good_n);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'average-n',$feedback_data_total[$feedback_param.'average-n']+$average_n);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'bad-n',$feedback_data_total[$feedback_param.'bad-n']+$bad_n);
             }
             else{
-                $feedback_max_score+=10;
-                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data[$feedback_param]);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$current_value);
+                $feedback_data_total=array_push_assoc($feedback_data_total,'total',$current_value);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'good-n',$good_n);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'average-n',$average_n);
+                $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'bad-n',$bad_n);
             }
         }
     }

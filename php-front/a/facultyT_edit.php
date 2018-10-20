@@ -28,7 +28,7 @@ while($rowform = $resultform->fetch_assoc())
                 <td>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Description" data-name="faculty_desc" value="<?php echo $faculty_desc; ?>" >
-                        <span class="input-group-addon zmultisubmit" style="cursor:pointer;" type="submit" data-action="edit" data-parameter="<?php echo $faculty_id; ?>" data-type="faculty">
+                        <span class="input-group-addon alert-info btn btn-info zmultisubmit" type="submit" data-action="edit" data-parameter="<?php echo $faculty_id; ?>" data-type="faculty">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </span>
                     </div>
@@ -36,6 +36,7 @@ while($rowform = $resultform->fetch_assoc())
                 <td>
                     <button data-action="delete" data-parameter="<?php echo $faculty_id; ?>" data-type="faculty" type="submit" class="btn btn-danger zmultisubmit">
                         <span class="glyphicon glyphicon-trash"></span>
+                        <span>Remove</span>
                     </button>
                 </td>
             </tr>
@@ -44,10 +45,14 @@ while($rowform = $resultform->fetch_assoc())
 ?>
 		<tr>
 			<td colspan="10">
-                <button data-action="add" data-parameter="<?php echo $faculty_id; ?>" data-type="faculty" type="submit" class="btn btn-xs btn-danger zmultisubmit">
-					<span class="glyphicon glyphicon-plus"></span>
-					<span>Add New</span>
-				</button>			
+                <div class="input-group">
+                    <select data-name="faculty_id" class="form-control">
+	        	        <?php include 'frag_field_drop.php';?>
+	        	    </select>
+                    <span data-action="add" data-parameter="new" data-type="faculty" type="submit" class="input-group-addon btn btn-danger zmultisubmit">
+                        <span class="glyphicon glyphicon-plus"></span> Add New
+				    </span>			
+                </div>
 			</td>
 		</tr>
     </tbody>

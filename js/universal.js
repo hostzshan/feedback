@@ -48,7 +48,7 @@ $.fn.zformmultisubmit=function(){
             var action=$(this).data('action');
             var parameter=$(this).data('parameter');
             // var args="";
-            $(this).siblings('input').each(function(){
+            $(this).siblings('input,select').each(function(){
                 var arg_name=$(this).data('name');
                 var arg_value=$(this).val();
                 // args+="&"+arg_name+"="+arg_value;

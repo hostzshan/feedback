@@ -1,4 +1,4 @@
-<option value="" selected>--Select--</option>
+<option value="">--Select--</option>
 <?php 
 $query="SELECT access_code from cluster";
 // echo $query;

@@ -232,18 +232,17 @@ function getconsolidatedfbdata($conn,$faculty_id,$feedback_code,$feedback_params
                 $bad_n++;
             if (array_key_exists($feedback_param, $feedback_data_total)) {
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$feedback_data_total[$feedback_param]+$current_value);
-                $feedback_data_total=array_push_assoc($feedback_data_total,'total',$feedback_data_total['total']+$current_value);
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'good-n',$feedback_data_total[$feedback_param.'good-n']+$good_n);
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'average-n',$feedback_data_total[$feedback_param.'average-n']+$average_n);
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'bad-n',$feedback_data_total[$feedback_param.'bad-n']+$bad_n);
             }
             else{
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param,$current_value);
-                $feedback_data_total=array_push_assoc($feedback_data_total,'total',$current_value);
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'good-n',$good_n);
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'average-n',$average_n);
                 $feedback_data_total=array_push_assoc($feedback_data_total,$feedback_param.'bad-n',$bad_n);
             }
+            $feedback_data_total=array_push_assoc($feedback_data_total,'total',$feedback_data_total['total']+$current_value);
         }
     }
     return $feedback_data_total;

@@ -25,6 +25,12 @@ else{
         $menu_items=array('feedback'=>'Active','inactive'=>'Inactive','past'=>'Closed');
         $canvas_paint=$usertype.'/feedback.php';
     }
+    else if($usertype=='m')
+    {
+        $menu_heading="Manager";
+        $menu_items=array('report'=>'Reports','feedback'=>'Form','faculty'=>'Faculty','cluster'=>'Access Group');
+        $canvas_paint=$usertype.'/report.php';
+    }
 }
 
 ?>

@@ -13,13 +13,13 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
     $faculty_id=$faculty_ids['faculty_id'];
     ?>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <?php
                 $feedback_data=getconsolidatedfbdata($conn,$faculty_id,$feedback_code,$feedback_params);
                 ?>
                 <label class="col-sm-12 text-primary"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
 <?php
     foreach($feedback_params as $feedback_param)
     {
@@ -37,14 +37,14 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
             <div class="row form-group">
                 <label class="col-sm-3 control-label text-muted" style="font-size:14px"><?php echo $feedback_param; ?></label>
                 <div class="col-sm-9">
-                        <div class="col-sm-6">
+                        <div class="col-sm-10">
                             <div class="z-progress progress">
                                 <?php
                                 if($n!=0){ 
                                 $ratio=$obtained/$max;
                                 ?>
                                 <div class="progress-bar" role="progressbar" data-ratio="<?php echo $ratio; ?>">
-                                    <?php echo substr($ratio*100,0,5); ?>%
+                                    <?php echo substr($ratio*10,0,5); ?>
                                 </div>
                                 <?php }
                                 else {?>
@@ -55,22 +55,7 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <div class="input-group">
-                                <div class="form-control"><?php echo $good_n/$n*100; ?>%</div>
-                                <div class="input-group-addon alert-info"><?php echo $good; ?></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="input-group">
-                                <div class="form-control"><?php echo $average_n/$n*100; ?>%</div>
-                                <div class="input-group-addon alert-warning"><?php echo $average; ?></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="input-group">
-                                <div class="form-control"><?php echo $bad_n/$n*100; ?>%</div>
-                                <div class="input-group-addon alert-danger">-</div>
-                            </div>
+                            <div class="form-control"><?php echo $n; ?></div>
                         </div>
                 </div>
             </div>
@@ -82,9 +67,8 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 ?>
                 </div>
             </div>
-
 <hr>
-        
+
             <div class="row form-group">
                 <label class="col-sm-2 control-label text-danger" style="font-size:14px">Overall Score</label>
                 <div class="col-sm-10">
@@ -104,35 +88,9 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                             </div>
                             <?php } ?>
                         </div>
-                        <!-- <div class="progress">
-                            <?php 
-                            $percent=$total/($max*$param_count)*100;
-                            if($total/($max*$param_count)>=$good/$y_max){  
-                            ?>
-                            <div class="progress-bar progress-bar-info" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else if($total/($max*$param_count)>=$average/$y_max){ ?>
-                            <div class="progress-bar progress-bar-warning" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else if($total/($max*$param_count)<$average/$y_max){ ?>
-                            <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else {?>
-                            <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:100%;">
-                                <?php echo 'Server Error'; ?>
-                            </div>
-                            <?php } ?>
-                        </div> -->
                     </div>
                 </div>
             </div>
-            
 <?php
 }
 ?>

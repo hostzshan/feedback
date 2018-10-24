@@ -1,23 +1,23 @@
 <?php include "../php-back/functions.php"; ?>
 <div class="form-group input-group has-warning">
-	<span class="input-group-addon">Feedback Name</span>
-    <input id="feedback_name" type="text" class="form-control text-center" value="<?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?>" readonly required />
+	<span class="input-group-addon">Faculty Name</span>
+    <input id="feedback_name" type="text" class="form-control text-center" value="<?php $faculty_desc = getdescription($conn,"username",$faculty_id); echo $faculty_desc?>" readonly required />
 </div>
 <?php 
-$faculty_count=0;
-$feedback_data_total=array();
-$total=0;
-if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
+$form_count=0;
+while($feedback_codes = $resultform->fetch_assoc())//initialised in feedbackT.php
 {
+    $feedback_data_total=array();
+    $total=0;
     $param_count=0;
-    $faculty_id=$faculty_ids['faculty_id'];
+    $feedback_code=$feedback_codes['feedback_code'];
     ?>
-        <div class="row">
+        <div class="row collapse in" id="progressdetail<?php echo $form_count; ?>">
             <div class="col-sm-2">
                 <?php
                 $feedback_data=getconsolidatedfbdata($conn,$faculty_id,$feedback_code,$feedback_params);
                 ?>
-                <label class="col-sm-12 text-primary"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
+                <label class="col-sm-12 text-primary"><?php echo $param_count==0?$feedback_codes['faculty_desc']:''; ?></label>
             </div>
             <div class="col-sm-10">
 <?php
@@ -47,7 +47,7 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                                     <?php echo substr($ratio*100,0,5); ?>%
                                 </div>
                                 <?php }
-                                else {?>
+                                else { $n=1;?>
                                 <div class="progress-bar error" role="progressbar" data-ratio="1">
                                     <?php echo 'Empty'; ?>
                                 </div>
@@ -82,14 +82,12 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 ?>
                 </div>
             </div>
-
-<hr>
-        
-            <div class="row form-group">
-                <label class="col-sm-2 control-label text-danger" style="font-size:14px">Overall Score</label>
+   
+<div class="row form-group">
+                <label class="col-sm-2 control-label text-danger" style="font-size:14px"><?php echo getdescription($conn,'feedback',$feedback_code)."(".$feedback_code.")"; ?></label>
                 <div class="col-sm-10">
                     <div class="col-sm-12">
-                        <div class="z-progress progress">
+                        <div class="z-progress progress" style="cursor:pointer;" data-toggle="collapse" data-target="#progressdetail<?php echo $form_count; ?>">
                             <?php 
                             if($n!=0){  
                             $ratio=$total/($max*$param_count);
@@ -104,39 +102,15 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                             </div>
                             <?php } ?>
                         </div>
-                        <!-- <div class="progress">
-                            <?php 
-                            $percent=$total/($max*$param_count)*100;
-                            if($total/($max*$param_count)>=$good/$y_max){  
-                            ?>
-                            <div class="progress-bar progress-bar-info" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else if($total/($max*$param_count)>=$average/$y_max){ ?>
-                            <div class="progress-bar progress-bar-warning" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else if($total/($max*$param_count)<$average/$y_max){ ?>
-                            <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else {?>
-                            <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:100%;">
-                                <?php echo 'Server Error'; ?>
-                            </div>
-                            <?php } ?>
-                        </div> -->
                     </div>
                 </div>
             </div>
-            
+
+<hr>
 <?php
+$form_count++;
 }
 ?>
-
 <script>
 $('.z-progress').zprogressbar(<?php echo $good; ?>,<?php echo $average; ?>,<?php echo $y_max; ?>);
 </script>

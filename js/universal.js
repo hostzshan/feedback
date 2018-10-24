@@ -1,3 +1,6 @@
+function triggersubmit(elem){
+    $(elem).closest('form').submit();
+}
 $.fn.fragmentLoader=function(mode){
     var elem=this;
     $(elem).find('ul').children('li').on('click',function(){
@@ -85,3 +88,61 @@ $(window).on('click',function(event){
       $(".z-optionbox").hide();
     }
   });
+
+  $.fn.zprogressbar= function(good,average,max){
+    $(this).each(function(){
+        var elem=$(this).find('.progress-bar');
+        var ratio=$(elem).data('ratio');
+        // alert(ratio);
+        $(elem).css('width',(ratio*100)+'%');
+        $(elem).addClass('progress-bar-danger');
+        var el=this;
+        var x=1;
+        setTimeout(function animcol(){
+            var elem=$(el).find('.progress-bar');
+            var foundratio=parseInt($(elem).css('width'))/parseInt($(el).css('width'));
+            var percent=(foundratio*10).toFixed(2);
+            $(elem).html(percent);
+            var goodratio=good/max;
+            var averageratio=average/max;
+            // alert(foundratio+"="+goodratio);
+            if($(elem).hasClass('error')){
+                $(elem).removeClass('progress-bar-warning');
+                $(elem).removeClass('progress-bar-info');
+                $(elem).addClass('progress-bar-danger');
+            }
+            else if(foundratio>=goodratio){
+                $(elem).removeClass('progress-bar-warning');
+                $(elem).removeClass('progress-bar-danger');
+                $(elem).addClass('progress-bar-info');
+            }
+            else if(foundratio>=averageratio){
+                $(elem).removeClass('progress-bar-info');
+                $(elem).removeClass('progress-bar-danger');
+                $(elem).addClass('progress-bar-warning');
+            }
+            x*=1.2;
+            if(x<120)
+                setTimeout(animcol,x);
+            else
+                final(el,goodratio,averageratio);
+        },x);
+    });
+}
+function final(el,goodratio,averageratio){
+    var elem=$(el).find('.progress-bar');
+    var ratio=$(elem).data('ratio');
+    // alert(ratio);
+    var percent=(ratio*10).toFixed(2);
+    $(elem).html(percent);
+    if(ratio>=goodratio){
+        $(elem).removeClass('progress-bar-warning');
+        $(elem).removeClass('progress-bar-danger');
+        $(elem).addClass('progress-bar-info');
+    }
+    else if(ratio>=averageratio){
+        $(elem).removeClass('progress-bar-info');
+        $(elem).removeClass('progress-bar-danger');
+        $(elem).addClass('progress-bar-warning');
+    }
+}

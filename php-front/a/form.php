@@ -14,11 +14,12 @@ $resultaccess=mysqli_query($conn,$query);
                     <th>Feedback Name</th>
                     <th>Field(s) / Faculties</th>
                     <th>Allowed Users</th>
-                    <th>Action</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
 <?php
+$i=1;
 while($rowaccess = $resultaccess->fetch_assoc())
 {
 ?>
@@ -27,36 +28,36 @@ while($rowaccess = $resultaccess->fetch_assoc())
                     $feedback_code = htmlspecialchars($rowaccess['feedback_code']);
                     $feedback_desc = getdescription($conn,"feedback",$feedback_code);
                     ?>
-                    <td>1</td>
+                    <td><?php echo $i;?></td>
                     <td><?php echo $feedback_desc; ?></td>
                     <td class="playground">
-                        <button type="submit" class="btn btn-danger z-optionbtn" data-target=".z-optionbox.z-i0" style="float:left;">
-                            <span class="glyphicon glyphicon-list-alt"></span>
+                        <button type="submit" class="btn btn-xs btn-warning z-optionbtn" data-target=".z-optionbox.z-i0<?php echo $i;?>" style="float:left;">
+                            <span class="glyphicon glyphicon-list-alt"></span> Options
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
-                            <ul class="z-optionbox z-i0" data-requester='trinket' data-fragment='facultyt' style="display:none;">
+                            <ul class="z-optionbox z-i0<?php echo $i;?>" data-requester='trinket' data-fragment='facultyt' style="display:none;">
                                 <li class="z-option" data-facultyt="edit&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Edit</li>
                                 <li class="z-option" data-facultyt="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
                             </ul>
                         </div>
                     </td>
                     <td class="playground">
-                        <button type="submit" class="btn btn-danger z-optionbtn" data-target=".z-optionbox.z-i1" style="float:left;">
-                            <span class="glyphicon glyphicon-user"></span>
+                        <button type="submit" class="btn btn-xs btn-info z-optionbtn" data-target=".z-optionbox.z-i1<?php echo $i;?>" style="float:left;">
+                            <span class="glyphicon glyphicon-user"></span> Options
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
-                            <ul class="z-optionbox z-i1" data-requester='trinket' data-fragment='accesst' style="display:none;">
+                            <ul class="z-optionbox z-i1<?php echo $i;?>" data-requester='trinket' data-fragment='accesst' style="display:none;">
                                 <li class="z-option" data-accesst="edit&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Edit</li>
                                 <li class="z-option" data-accesst="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
                             </ul>
                         </div>
                     </td>
                     <td class="playground">
-                        <button type="submit" class="btn btn-danger z-optionbtn" data-target=".z-optionbox.z-i2" style="float:left;">
-                            <span class="glyphicon glyphicon-cog"></span>
+                        <button type="submit" class="btn btn-xs btn-danger z-optionbtn" data-target=".z-optionbox.z-i2<?php echo $i;?>" style="float:left;">
+                            <span class="glyphicon glyphicon-cog"></span> Settings
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
-                            <ul class="z-optionbox z-i2" data-requester='trinket' data-fragment='formt' style="display:none;">
+                            <ul class="z-optionbox z-i2<?php echo $i;?>" data-requester='trinket' data-fragment='formt' style="display:none;">
                                 <li class="z-option" data-formt="delete&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Delete</li>
                                 <li class="z-option" data-formt="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
                             </ul>
@@ -64,18 +65,28 @@ while($rowaccess = $resultaccess->fetch_assoc())
                     </td>
                 </tr>
 <?php 
+$i++;
 }
 ?>
 				<tr>
 					<td colspan="10">
-						<button type="button" onclick="addmem(this)" name="" value="" class="btn btn-xs col-xs-12 btn-info" >
-							<span class="glyphicon glyphicon-plus"></span>
-							<span>Add New</span>
-						</button>
+                        <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="newform">
+                            <div class="">
+                                <label for="feedback_desc" class="col-sm-1 control-label" style="color:#337ab7; font-size:14px">Description</label>
+                                <div class="input-group col-sm-11">
+                                    <input id="feedback_desc" name="feedback_desc" type="text" class="form-control" required />
+                                    <span onclick="triggersubmit(this)" class="input-group-addon btn btn-danger alert-danger">
+                                        <span class="glyphicon glyphicon-plus"></span>				
+                                        <span>Add New Form</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
 					</td>
 				</tr>
             </tbody>
         </table>
+
     </div>
 </div>
 
@@ -102,18 +113,35 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	        	</div>
 	        </div>
 	        <div class="row form-group">
-	        	<label for="parameter" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Faculty</label>
+	        	<label for="parameter" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Action Helper</label>
 	        	<div class="col-sm-10">
                     <select class="form-control" id="parameter" name="parameter" required>
+                        <option value="new">Assign Access/Add Faculty</option>
 	        			<?php include 'frag_field_drop.php';?>
 	        			<?php include 'frag_access_drop.php';?>
 	        		</select>
 	        	</div>
 	        </div>
 	        <div class="row form-group">
-	        	<label for="faculty_desc" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Faculty Description</label>
+	        	<label for="access_code" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Group/Access</label>
 	        	<div class="col-sm-10">
-                    <input type=text class="form-control" id="faculty_desc" name="faculty_desc">
+                    <select class="form-control" id="access_code" name="access_code">
+	        			<?php include 'frag_access_drop.php';?>
+	        		</select>
+	        	</div>
+	        </div>
+	        <div class="row form-group">
+                <label for="faculty_id" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Field/Faculty</label>
+	        	<div class="col-sm-10">
+                    <select class="form-control" id="faculty_id" name="faculty_id">
+	        			<?php include 'frag_field_drop.php';?>
+	        		</select>
+	        	</div>
+	        </div>
+	        <div class="row form-group">
+	        	<label for="faculty_desc" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Field/Faculty Description</label>
+	        	<div class="col-sm-10">
+                    <input type="text" class="form-control" id="faculty_desc" name="faculty_desc">
 	        	</div>
 	        </div>
 	        <div class="row form-group">
@@ -123,6 +151,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
 	        			<option value="">--Select--</option>
 	        			<option value="faculty">Field/Faculty</option>
 	        			<option value="access">Group/Access</option>
+	        			<option value="form">Feedback Form</option>
 	        		</select>
 	        	</div>
 	        </div>
@@ -151,5 +180,6 @@ while($rowaccess = $resultaccess->fetch_assoc())
     $(".z-optionbtn").zoption();
     $(".playground").fragmentLoader("trinket");
     $("#multiform").zform();
+    $(".ajaxsubmitform").zform();
 </script>
 

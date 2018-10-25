@@ -89,6 +89,25 @@ function successdisplay($success_main,$success_desc){
 }
 function inputvalidate($mode,$data){
     $flag=0;
+    if($mode=='regex')
+    {
+        foreach($data as $x => $x_value)
+        {
+            if($x_value=='alpha')
+                $regex='/[^a-z]/i';
+            else if($x_value=='alphanum')
+                $regex='/[^a-z0-9]/i';
+            else if($x_value=='num')
+                $regex='/[^0-9]/i';
+            else
+                $regex='/[^a-z_\-0-9]/i';
+            if(preg_match($regex, $x))
+            {
+                $flag=1;
+                break;
+            }
+        }
+    }
     if($mode=='max-length')
     {
         foreach($data as $x => $x_value)

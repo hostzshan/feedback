@@ -3,6 +3,7 @@ include 'functions.php';
 include 'f_accesscode_validate.php';
 
 session_start();
+$success_main='Access Code Generated';
 $error_main='Access Code Not Generated';
 
 if ($_SERVER['REQUEST_METHOD']=='POST'){
@@ -13,12 +14,28 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     else
     {
         extract($_POST);//get all post parameters
-        $access=$department.$batch.$section;
+        $access=$department.$batch.$section.$sub_section;
         $access_code=generateaccesscode('ZAC');
-        $data=array('access'=>$access,'access_code'=>$access_code,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
+        $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
         // errordisplay($error_main,'Registration disabled.');//Enable this to close registration during development, remember to disable code that follows this line
         if(insertintodb('cluster',$data))
-            successdisplay('Access Code Generated:',$access_code);
+        {
+            $access=$department.$batch.$section;
+            $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
+            if(insertintodb('cluster',$data))
+            {
+                $access=$department.$batch;
+                $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
+                if(insertintodb('cluster',$data))
+                {
+                    $access=$department;
+                    $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
+                    if(insertintodb('cluster',$data))
+                        successdisplay($success_main,'Note: '.$access_code);
+                }
+            }
+
+        }
         else
             errordisplay($error_main,'Server Error, please try again later.');
     }

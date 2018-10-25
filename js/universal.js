@@ -44,6 +44,18 @@ $.fn.zform=function(){
         }, 50);
     });
 }
+$.fn.zstatusUpdater=function(mode){
+    var elem=this;
+    $(elem).find('ul').children('li').on('click',function(){
+        $(elem).find('ul').children('li').removeClass('active');
+        $(this).addClass('active');
+        var requester=$(this).closest('ul').data('requester');
+        var fragment=$(this).closest('ul').data('fragment');
+        var control=$(this).closest('ul').data('control');
+        var module='control'+'='+control+'&'+fragment+'='+$(this).data(fragment);
+        $('#'+mode).ajaxReload("change",requester,module);
+    });
+}
 $.fn.zformmultisubmit=function(){
     $(this).each(function(){
         var elem=this;

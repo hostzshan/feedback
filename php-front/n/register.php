@@ -23,9 +23,9 @@
 			</div>
 		</div>
 		<div class="row form-group">
-			<label for="dep" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Department</label>
+			<label for="department" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Department</label>
 			<div class="col-sm-10">
-				<select required class="form-control" id="dep" name="dep">
+				<select required class="form-control" id="department" name="department">
 					<option value="">--Select--</option>
 					<option value="CSE">Computer Science and Engineering</option>
 					<option value="IT">Information Technology</option>

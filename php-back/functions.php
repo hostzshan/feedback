@@ -15,6 +15,24 @@ function realescape($arr){
     $conn->close();
 }
 
+function verifyaccesscode($conn,$access_code,$department){
+    $query = "SELECT access FROM cluster WHERE access_code='$access_code' AND department='$department'";//temporary delete
+    $i=0;
+    // foreach($data as $x => $x_value){
+    //     // echo $x."\n";
+    //     // echo $x_value."\n";
+    //     $query.=$i++==0?" WHERE ":" AND ";
+    //     $query.=$x."='$x_value'";
+    //     $data[$x]=$x_value."_deleted";
+    // }
+    // echo $query;
+    $result=mysqli_query($conn,$query);
+    if($row=$result->fetch_assoc()){
+        return $row['access'];
+    }
+    return 'false';
+}
+
 function insertintodb($table,$data){
     include "../php-back/".'connection.php';
     $query1 = "INSERT INTO $table (sno) VALUES (NULL)";

@@ -27,14 +27,7 @@ while($rowform = $resultform->fetch_assoc())
                 <td><?php echo $username_desc; ?></td>
                 <td><?php echo htmlspecialchars($rowform['batch']); ?></td>
                 <td><?php echo htmlspecialchars($rowform['section']); ?></td>
-                <td>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Description" data-name="faculty_desc" value="<?php echo htmlspecialchars($rowform['access']); ?>" >
-                        <span class="input-group-addon alert-info btn btn-info zmultisubmit" type="submit" data-action="edit" data-parameter="<?php echo $username; ?>" data-type="faculty">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </span>
-                    </div>
-                </td>
+                <td><?php echo htmlspecialchars($rowform['access']); ?></td>
                 <td class="userstatus">
                     <button type="submit" class="btn btn-xs btn-danger z-optionbtn" data-target=".z-optionbox.z-i0<?php echo $i;?>" style="float:left;">
                         <span class="glyphicon glyphicon-cog"></span> Settings

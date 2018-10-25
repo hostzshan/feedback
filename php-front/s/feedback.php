@@ -17,6 +17,7 @@ $resultaccess=mysqli_query($conn,$query);
             </thead>
             <tbody>
 <?php
+$i=1;
 while($rowaccess = $resultaccess->fetch_assoc())
 {
 ?>
@@ -25,14 +26,14 @@ while($rowaccess = $resultaccess->fetch_assoc())
                     $feedback_code = htmlspecialchars($rowaccess['feedback_code']);
                     $feedback_desc = getdescription($conn,"feedback",$feedback_code);
                     ?>
-                    <td>1</td>
+                    <td><?php echo $i; ?></td>
                     <td><?php echo $feedback_desc; ?></td>
                     <td class="playground">
-                        <button type="submit" class="btn btn-danger z-optionbtn" data-target=".z-optionbox.z-i0" style="float:left;">
+                        <button type="submit" class="btn btn-danger z-optionbtn" data-target=".z-optionbox.z-i0<?php echo $i; ?>" style="float:left;">
                             <span class="glyphicon glyphicon-cog"></span>
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
-                            <ul class="z-optionbox z-i0" data-requester='trinket' data-fragment='feedbackt' style="display:none;">
+                            <ul class="z-optionbox z-i0<?php echo $i; ?>" data-requester='trinket' data-fragment='feedbackt' style="display:none;">
                                 <li class="z-option" data-feedbackt="edit&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Edit</li>
                                 <li class="z-option" data-feedbackt="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
                             </ul>
@@ -40,6 +41,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
                     </td>
                 </tr>
 <?php 
+$i++;
 }
 ?>
             </tbody>

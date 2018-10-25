@@ -27,9 +27,12 @@
 			<div class="col-sm-10">
 				<select required class="form-control" id="department" name="department">
 					<option value="">--Select--</option>
-					<option value="CSE">Computer Science and Engineering</option>
-					<option value="IT">Information Technology</option>
-					<option value="CE">Civil Engineering</option>
+						<option value="CS">Computer Science and Engineering</option>
+                        <option value="ME">Mechanical Engineering</option>
+                        <option value="EN">Electronics and Communication</option>
+                        <option value="EC">Electrical and Electronics Engineering</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="CE">Civil Engineering</option>
 				</select>
 			</div>
 		</div>

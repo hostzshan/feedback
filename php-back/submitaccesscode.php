@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     else
     {
         extract($_POST);//get all post parameters
-        $access=$department.$course_year.$batch;
-        $access_code=generateaccesscode($access);
-        $data=array('access'=>$access,'access_code'=>$access_code,'allowed_users'=>$allowed_users,'description'=>$description);
+        $access=$department.$batch.$section;
+        $access_code=generateaccesscode('ZAC');
+        $data=array('access'=>$access,'access_code'=>$access_code,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
         // errordisplay($error_main,'Registration disabled.');//Enable this to close registration during development, remember to disable code that follows this line
         if(insertintodb('cluster',$data))
-            echo '<div class="alert alert-info"><strong>Access Code Generated: </strong> '.$access_code.'</div>';
+            successdisplay('Access Code Generated:',$access_code);
         else
             errordisplay($error_main,'Server Error, please try again later.');
     }

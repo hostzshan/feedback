@@ -18,30 +18,30 @@
                 </div>
 		</div>
 		<div class="row form-group">
-			<label for="course_year" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Course Year</label>
+			<label for="batch" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Batch (Year of passing)</label>
                 <div class="col-sm-10">
-                    <select required class="form-control" id="course_year" name="course_year">
+                    <select required class="form-control" id="batch" name="batch">
                         <option value="">--Select--</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
                     </select>
                 </div>
 		</div>
 		<div class="row form-group">
-			<label for="batch" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Section/Batch</label>
+			<label for="section" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Section</label>
                 <div class="col-sm-10">
-                    <select required class="form-control" id="batch" name="batch">
+                    <select class="form-control" id="section" name="section">
                         <option value="">--Select--</option>
-                        <option value="A1">A1</option>
-                        <option value="A2">A2</option>
-                        <option value="B1">B1</option>
-                        <option value="B2">B2</option>
-                        <option value="C1">C1</option>
-                        <option value="C2">C2</option>
-                        <option value="D1">D1</option>
-                        <option value="D2">D2</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
                     </select>
                 </div>
 		</div>
@@ -52,9 +52,9 @@
 			</div>
         </div>
         <div class="row form-group">
-			<label for="description" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Description</label>
+			<label for="sub_section" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Group</label>
 			<div class="col-sm-10">
-				<input id="description" name="description" type="text" class="form-control" required />
+				<input id="sub_section" name="sub_section" type="text" class="form-control" />
 			</div>
         </div>
 		<div class="row form-group">

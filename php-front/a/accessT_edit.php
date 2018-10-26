@@ -37,7 +37,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
 		<tr>
 			<td colspan="10">
                 <div class="input-group">
-                    <select data-name="access_code" class="form-control">
+                    <select data-name="access" class="form-control">
 	        	        <?php include 'frag_access_drop.php';?>
 	        	    </select>
                     <span data-action="add" data-parameter="new" data-type="access" type="submit" class="input-group-addon btn btn-danger zmultisubmit">

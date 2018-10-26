@@ -1,5 +1,5 @@
 <?php
-$query="SELECT DISTINCT regist.username,cluster.section,cluster.batch,regist.access from regist INNER JOIN cluster WHERE regist.access=cluster.access AND cluster.department='$approvet' AND regist.usertype='s' ORDER BY regist.username";
+$query="SELECT regist.username,cluster.section,cluster.batch,cluster.access from regist INNER JOIN cluster WHERE regist.access_code=cluster.access_code AND cluster.department='$approvet' AND regist.usertype='s' AND cluster.access_code_desc='anchor' ORDER BY regist.username";
 // echo $query;
 $resultform=mysqli_query($conn,$query);
 

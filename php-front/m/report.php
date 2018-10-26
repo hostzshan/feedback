@@ -1,5 +1,5 @@
 <?php
-$query="SELECT cluster.department,cluster.batch,cluster.section,cluster.sub_section,form.faculty_id,form.feedback_code,form.faculty_desc FROM cluster INNER JOIN access INNER JOIN form WHERE cluster.access_code=access.access_code AND access.feedback_code=form.feedback_code";
+$query="SELECT cluster.department,cluster.batch,cluster.section,cluster.sub_section,form.faculty_id,form.feedback_code,form.faculty_desc FROM cluster INNER JOIN access INNER JOIN form WHERE cluster.access_code=access.access_code AND access.feedback_code=form.feedback_code AND cluster.access_code_desc='anchor'";
 // echo $query;
 $resultaccess=mysqli_query($conn,$query);
 ?>

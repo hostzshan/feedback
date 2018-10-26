@@ -36,11 +36,11 @@ function verifyaccesscode($conn,$access_code,$department){
 function insertintodb($table,$data){
     include "../php-back/".'connection.php';
     $query1 = "INSERT INTO $table (sno) VALUES (NULL)";
+    $last_id = $conn->insert_id;
     if ($conn->query($query1) === TRUE) {
-        $last_id = $conn->insert_id;
         return updatedb($table,$data,$last_id)?true:false;
     } else {
-        return false;
+        return deletefromdb($table,array('sno'=>$last_id));
     }
     $conn->close();
 }
@@ -217,6 +217,13 @@ function getdescription($conn,$mode,$id){
         }
     }
     return 'Not found';
+}
+function getaccesscodes($conn,$access){
+    $flag=0;
+    $query="SELECT access_code from cluster WHERE access='$access'";
+    // echo $query;
+    $resultdesc=mysqli_query($conn,$query);
+    return $resultdesc;
 }
 function getfielddetail($conn,$mode,$id1,$id2){
     $flag=0;

@@ -52,14 +52,15 @@ while($rowaccess = $resultaccess->fetch_assoc())
                             </ul>
                         </div>
                     </td>
-                    <td class="playground">
+                    <td class="feedbackstatus">
                         <button type="submit" class="btn btn-xs btn-danger z-optionbtn" data-target=".z-optionbox.z-i2<?php echo $i;?>" style="float:left;">
                             <span class="glyphicon glyphicon-cog"></span> Settings
                         </button>
                         <div class="col-xs-12" style="float:left;position:relative">
-                            <ul class="z-optionbox z-i2<?php echo $i;?>" data-requester='trinket' data-fragment='formt' style="display:none;">
-                                <li class="z-option" data-formt="delete&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Form as Student"><span class="glyphicon glyphicon-edit"></span><br>Delete</li>
-                                <li class="z-option" data-formt="preview&feedback_code=<?php echo $feedback_code; ?>" title="Open Feedback Preview as Student"><span class="glyphicon glyphicon-eye-open"></span><br>Preview</li>
+                            <ul class="z-optionbox z-i2<?php echo $i;?>" data-requester='status' data-fragment='type' data-control='<?php echo $feedback_code; ?>' style="display:none;">
+                                <li class="z-option" data-type="feedback&status=a" title="Change Feedback Status to Active"><span class="glyphicon glyphicon-ok-circle"></span> Activate</li>
+                                <li class="z-option" data-type="feedback&status=n" title="Change Feedback Status to Disabled"><span class="glyphicon glyphicon-ban-circle"></span> Disable</li>
+                                <!-- <li class="z-option" data-type="feedback&status=c" title="Change Feedback Status to Closed"><span class="glyphicon glyphicon-ban-circle"></span> Close</li> -->
                             </ul>
                         </div>
                     </td>
@@ -123,9 +124,9 @@ $i++;
 	        	</div>
 	        </div>
 	        <div class="row form-group">
-	        	<label for="access_code" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Group/Access</label>
+	        	<label for="access" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Group/Access</label>
 	        	<div class="col-sm-10">
-                    <select class="form-control" id="access_code" name="access_code">
+                    <select class="form-control" id="access" name="access">
 	        			<?php include 'frag_access_drop.php';?>
 	        		</select>
 	        	</div>
@@ -179,6 +180,7 @@ $i++;
 <script>
     $(".z-optionbtn").zoption();
     $(".playground").fragmentLoader("trinket");
+    $(".feedbackstatus").zstatusUpdater('feedback');
     $("#multiform").zform();
     $(".ajaxsubmitform").zform();
 </script>

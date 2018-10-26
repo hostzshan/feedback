@@ -70,10 +70,14 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             }
             else if($type=="access")
             {
-                $data=array('feedback_code'=>$control,'access_code'=>$access_code);
-                // var_dump($data);
-                $success_info="Access assigned to this form successfully.";
-                $error_info="Access assignation failed.";
+                $access_codes=getaccesscodes($conn,$access);
+                while($rowdesc = $access_codes->fetch_assoc()){
+                    $access_code=$rowdesc['access_code'];
+                    $data=array('feedback_code'=>$control,'access_code'=>$access_code);
+                    // var_dump($data);
+                    $success_info="Access code ".$access_code." assigned to this form successfully.";
+                    $error_info="Access assignation failed.";
+                }
             }
             else{
                 errordisplay($error_main,'Unexpected.');

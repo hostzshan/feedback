@@ -1,5 +1,5 @@
 <?php
-$query="SELECT feedback_code FROM form_info ORDER BY created";
+$query="SELECT feedback_code,feedback_status FROM form_info ORDER BY created";
 // echo $query;
 $resultaccess=mysqli_query($conn,$query);
 ?>
@@ -119,7 +119,17 @@ $i++;
                     <select class="form-control" id="parameter" name="parameter" required>
                         <option value="new">Assign Access/Add Faculty</option>
 	        			<?php include 'frag_field_drop.php';?>
-	        			<?php include 'frag_access_drop.php';?>
+	        			<option value="">--Select--</option>
+                            <?php 
+                            $query="SELECT DISTINCT access_code from cluster";
+                            // echo $query;
+                            $resultfaculties=mysqli_query($conn,$query);
+                            while($rowfaculties = $resultfaculties->fetch_assoc())
+                            { 
+                                $access_code = htmlspecialchars($rowfaculties['access_code']);
+                            ?>
+                        <option value="<?php echo $access_code; ?>"><?php echo getdescription($conn,'access_code',$access_code); ?></option>
+                        <?php } ?>
 	        		</select>
 	        	</div>
 	        </div>

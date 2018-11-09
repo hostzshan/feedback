@@ -8,7 +8,7 @@ $resultaccess=mysqli_query($conn,$query);
                 <tr>
                     <th>S. No.</th>
                     <th>Department</th>
-                    <th>Batch</th>
+                    <th>Year</th>
                     <th>Section</th>
                     <th>Feedback Form</th>
                     <th>Faculty</th>
@@ -31,7 +31,7 @@ while($rowaccess = $resultaccess->fetch_assoc())
                 <tr>
                     <td><?php echo $i;?></td>
                     <td><?php echo htmlspecialchars($rowaccess['department']); ?></td>
-                    <td><?php echo htmlspecialchars($rowaccess['batch']); ?></td>
+                    <td><?php echo 4-($rowaccess['batch']-date("Y")); ?></td>
                     <td><?php echo htmlspecialchars($rowaccess['section']); ?></td>
                     <td><?php echo $feedback_desc; ?></td>
                     <td><?php echo $faculty_name."(".$faculty_id.")"; ?></td>

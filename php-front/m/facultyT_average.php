@@ -1,23 +1,23 @@
 <?php include "../php-back/functions.php"; ?>
 <div class="form-group input-group has-warning">
-	<span class="input-group-addon">Feedback Name</span>
-    <input id="feedback_name" type="text" class="form-control text-center" value="<?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?>" readonly required />
+	<span class="input-group-addon">Faculty Name</span>
+    <input id="feedback_name" type="text" class="form-control text-center" value="<?php $faculty_desc = getdescription($conn,"username",$faculty_id); echo $faculty_desc?>" readonly required />
 </div>
 <?php 
 $faculty_count=0;
-while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
+while($feedback_codes = $resultform->fetch_assoc())//initialised in feedbackT.php
 {
     $feedback_data_total=array();
     $total=0;
     $param_count=0;
-    $faculty_id=$faculty_ids['faculty_id'];
+    $feedback_code=$feedback_codes['feedback_code'];
     ?>
         <div class="row collapse" id="progressdetail<?php echo $faculty_count; ?>">
             <div class="col-sm-3">
                 <?php
                 $feedback_data=getconsolidatedfbdata($conn,$faculty_id,$feedback_code,$feedback_params);
                 ?>
-                <label class="col-sm-12 text-primary"><?php echo $param_count==0?$faculty_ids['faculty_desc']:''; ?></label>
+                <label class="col-sm-12 text-primary"><?php echo $param_count==0?$feedback_codes['faculty_desc']:''; ?></label>
             </div>
             <div class="col-sm-9">
 <?php
@@ -70,7 +70,7 @@ while($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
 <hr>
 
             <div class="row form-group">
-                <label class="col-sm-2 control-label text-danger" style="font-size:14px"><?php echo getdescription($conn,'username',$faculty_id)."(".$faculty_id.")"; ?></label>
+                <label class="col-sm-2 control-label text-danger" style="font-size:14px"><?php echo getdescription($conn,'feedback',$feedback_code)."(".$feedback_code.")"; ?></label>
                 <div class="col-sm-10">
                     <div class="col-sm-12">
                         <div class="z-progress progress" style="cursor:pointer;" data-toggle="collapse" data-target="#progressdetail<?php echo $faculty_count; ?>">

@@ -2,7 +2,7 @@
 <form role="form" action="javascript:void(0)" onsubmit="return false;" class="ajaxsubmitform" id="feedback" >
 <div class="form-group input-group has-warning">
 	<span class="input-group-addon">Feedback Code</span>
-    <input id="feedback_code" name="feedback_code" type="text" class="form-control text-center" value="<?php echo $feedback_code?>" readonly required />
+    <div id="feedback_name" type="text" class="form-control text-center"><?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?></div>
 </div>
 <?php 
 $faculty_count=0;

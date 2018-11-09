@@ -16,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         extract($_POST);//get all post parameters
         $access=$department.$batch.$section.$sub_section;
         $access_code=generateaccesscode('ZAC');
-        $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
+        $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section,'access_code_desc'=>'anchor');
         // errordisplay($error_main,'Registration disabled.');//Enable this to close registration during development, remember to disable code that follows this line
         if(insertintodb('cluster',$data))
         {
             $access=$department.$batch.$section;
-            $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section,'access_code_desc'=>'anchor');
+            $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
             if(insertintodb('cluster',$data))
             {
                 $access=$department.$batch;

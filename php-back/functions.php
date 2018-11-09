@@ -16,19 +16,19 @@ function realescape($arr){
 }
 
 function verifyaccesscode($conn,$access_code,$department){
-    $query = "SELECT access FROM cluster WHERE access_code='$access_code' AND department='$department'";//temporary delete
-    $i=0;
-    // foreach($data as $x => $x_value){
-    //     // echo $x."\n";
-    //     // echo $x_value."\n";
-    //     $query.=$i++==0?" WHERE ":" AND ";
-    //     $query.=$x."='$x_value'";
-    //     $data[$x]=$x_value."_deleted";
-    // }
+    $query = "SELECT access,allowed_users FROM cluster WHERE access_code='$access_code' AND department='$department' AND access_code_desc='anchor'";
     // echo $query;
     $result=mysqli_query($conn,$query);
     if($row=$result->fetch_assoc()){
-        return $row['access'];
+        $query = "SELECT count(*) FROM regist WHERE access_code='$access_code' AND userstatus='t'";
+        // echo $query;
+        $resultcount=mysqli_query($conn,$query);
+        if($rowcount=$resultcount->fetch_assoc()){
+            // echo $rowcount['count(*)'] ."<=". $row['allowed_users'];
+            if( $rowcount['count(*)'] <= $row['allowed_users'] )
+                return $row['access'];
+                // return 'false'; //activate this for stoppping registration during development
+        }
     }
     return 'false';
 }
@@ -36,9 +36,15 @@ function verifyaccesscode($conn,$access_code,$department){
 function insertintodb($table,$data){
     include "../php-back/".'connection.php';
     $query1 = "INSERT INTO $table (sno) VALUES (NULL)";
-    $last_id = $conn->insert_id;
     if ($conn->query($query1) === TRUE) {
-        return updatedb($table,$data,$last_id)?true:false;
+        $last_id = $conn->insert_id;
+        if(updatedb($table,$data,$last_id))
+            return true;
+        else
+        {
+            deletefromdb($table,array('sno'=>$last_id));
+            return false;
+        }
     } else {
         return deletefromdb($table,array('sno'=>$last_id));
     }
@@ -49,8 +55,9 @@ function updatedb($table,$data,$sno){
     include "../php-back/".'connection.php';
     $flag_update_statement=0;
     foreach($data as $x => $x_value){
-        // echo $x."\n";
-        // echo $x_value."\n";
+        // echo $x."<br>";
+        // echo $x_value."<br>";
+        // echo $sno."<br>";
         $stmt = $conn->prepare("UPDATE $table SET $x = ? WHERE sno='$sno'");
         $stmt->bind_param("s", $x_value);
         $flag_update_statement = $stmt->execute()?$flag_update_statement+1:$flag_update_statement;
@@ -205,18 +212,37 @@ function getdescription($conn,$mode,$id){
         $flag=1;
     }
     else if($mode == "access_code"){
-        $query="SELECT access_code_desc from cluster WHERE access_code='$id'";
+        $query="SELECT access from cluster WHERE access_code='$id' AND access_code_desc='anchor'";
         // echo $query;
-        $descname="access_code_desc";
+        $descname="access";
         $flag=1;
     }
     if($flag==1){
         $resultdesc=mysqli_query($conn,$query);
         if($rowdesc = $resultdesc->fetch_assoc()){
-            return $rowdesc[$descname];
+            $description = $rowdesc[$descname];
+            if($descname=='feedback_desc')
+            {
+                $query2="SELECT DISTINCT cluster.department from access INNER JOIN cluster WHERE access.access_code=cluster.access_code AND access.feedback_code='$id'";
+                // echo $query2;
+                $resultdesc2=mysqli_query($conn,$query2);
+                while($rowdesc2 = $resultdesc2->fetch_assoc()){
+                    $description.= " ".gethtmllabel($rowdesc2['department'],'danger');
+                }
+                $query2="SELECT DISTINCT cluster.batch from access INNER JOIN cluster WHERE access.access_code=cluster.access_code AND access.feedback_code='$id'";
+                // echo $query2;
+                $resultdesc2=mysqli_query($conn,$query2);
+                while($rowdesc2 = $resultdesc2->fetch_assoc()){
+                    $description.= " ".gethtmllabel(4-($rowdesc2['batch']-date('Y')),'info');
+                }
+            }
+            return $description;
         }
     }
     return 'Not found';
+}
+function gethtmllabel($text,$color_class){
+    return "<span class='label label-$color_class'>$text</span>";
 }
 function getaccesscodes($conn,$access){
     $flag=0;

@@ -1,7 +1,7 @@
 <?php include "../php-back/functions.php"; ?>
 <div class="form-group input-group has-warning">
 	<span class="input-group-addon">Feedback Name</span>
-    <input id="feedback_name" type="text" class="form-control text-center" value="<?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?>" readonly required />
+    <div id="feedback_name" type="text" class="form-control text-center"><?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?></div>
 </div>
 <?php 
 $faculty_count=0;
@@ -56,19 +56,19 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
-                                <div class="form-control"><?php echo $good_n/$n*100; ?>%</div>
+                                <div class="form-control"><?php echo substr($good_n/$n*100,0,5); ?>%</div>
                                 <div class="input-group-addon alert-info"><?php echo $good; ?></div>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
-                                <div class="form-control"><?php echo $average_n/$n*100; ?>%</div>
+                                <div class="form-control"><?php echo substr($average_n/$n*100,0,5); ?>%</div>
                                 <div class="input-group-addon alert-warning"><?php echo $average; ?></div>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
-                                <div class="form-control"><?php echo $bad_n/$n*100; ?>%</div>
+                                <div class="form-control"><?php echo substr($bad_n/$n*100,0,5); ?>%</div>
                                 <div class="input-group-addon alert-danger">-</div>
                             </div>
                         </div>
@@ -104,31 +104,6 @@ if($faculty_ids = $resultform->fetch_assoc())//initialised in feedbackT.php
                             </div>
                             <?php } ?>
                         </div>
-                        <!-- <div class="progress">
-                            <?php 
-                            $percent=$total/($max*$param_count)*100;
-                            if($total/($max*$param_count)>=$good/$y_max){  
-                            ?>
-                            <div class="progress-bar progress-bar-info" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else if($total/($max*$param_count)>=$average/$y_max){ ?>
-                            <div class="progress-bar progress-bar-warning" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else if($total/($max*$param_count)<$average/$y_max){ ?>
-                            <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:<?php echo $percent; ?>%;">
-                                <?php echo substr($percent,0,5); ?>%
-                            </div>
-                            <?php }
-                            else {?>
-                            <div class="progress-bar progress-bar-danger" id="appid_sent" role="progressbar" style="width:100%;">
-                                <?php echo 'Server Error'; ?>
-                            </div>
-                            <?php } ?>
-                        </div> -->
                     </div>
                 </div>
             </div>

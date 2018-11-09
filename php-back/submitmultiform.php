@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         {
             if($type=="faculty")
             {
-                $data=array('feedback_code'=>$control,'faculty_id'=>$faculty_id,'faculty_desc'=>$faculty_desc);
+                $data=array('feedback_code'=>$control,'faculty_id'=>$faculty_id);
                 $success_info="Faculty inserted on this form successfully.";
                 $error_info="Faculty insertion failed.";
             }

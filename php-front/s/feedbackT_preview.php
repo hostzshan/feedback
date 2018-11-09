@@ -1,7 +1,7 @@
 <?php include "../php-back/functions.php"; ?>
 <div class="form-group input-group has-warning">
 	<span class="input-group-addon">Feedback Name</span>
-    <input id="feedback_name" type="text" class="form-control text-center" value="<?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?>" readonly required />
+    <div id="feedback_name" type="text" class="form-control text-center"><?php $feedback_desc = getdescription($conn,"feedback",$feedback_code); echo $feedback_desc?></div>
 </div>
 <?php 
 $faculty_count=0;

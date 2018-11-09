@@ -85,7 +85,7 @@
                     <th>S. No.</th>
                     <th>Access Codes</th>
                     <th>Description</th>
-                    <th>Action</th>
+                    <th>Allowed Users</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,16 +96,13 @@
                     <tr>
                         <?php
                         $access_code = htmlspecialchars($rowaccess['access_code']);
-                        $access_code_desc = getdescription($conn,"access_code",$access_code);
+                        $access_code_desc = htmlspecialchars($rowaccess['access']);
+                        $allowed_users = htmlspecialchars($rowaccess['allowed_users']);
                         ?>
                         <td><?php echo $i++; ?></td>
                         <td><?php echo $access_code; ?></td>
                         <td><?php echo $access_code_desc; ?></td>
-                        <td>
-                            <button data-action="delete" data-parameter="<?php echo $access_code; ?>" data-type="access" type="submit" class="btn btn-danger zmultisubmit">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </td>
+                        <td><?php echo $allowed_users; ?></td>
                     </tr>
         <?php 
         }

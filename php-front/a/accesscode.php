@@ -1,7 +1,7 @@
 <div id="response"></div>
 <form role="form" action="javascript:void(0)" onsubmit="return false;" class="form-horizontal ajaxsubmitform" id="accesscode">
-<div class="panel panel-info">
-	<div class="panel-heading" data-toggle="collapse" data-target="#one" style="cursor:pointer;font-size:150%;"><b>Predefined</b><span class="btn btn-info pull-right glyphicon glyphicon-chevron-up"></span></div>
+<div class="panel panel-danger">
+	<div class="panel-heading" data-toggle="collapse" data-target="#one" style="cursor:pointer;font-size:150%;"><b>Create</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
 	<div  class="panel-body collapse in one" id="one">
 		<div class="row form-group">
 			<label for="department" class="col-sm-2 control-label" style="color:#337ab7; font-size:14px">Department</label>
@@ -69,6 +69,51 @@
 	</div>
 </div>
 </form>
+
+<div class="panel panel-danger">
+	<div class="panel-heading" data-toggle="collapse" data-target="#two" style="cursor:pointer;font-size:150%;"><b>Predefined</b><span class="btn btn-danger pull-right glyphicon glyphicon-chevron-up"></span></div>
+	<div  class="panel-body collapse in one" id="two">
+        <?php
+        $query="SELECT * from cluster WHERE access_code_desc='anchor' ORDER BY access_code";
+        // echo $query;
+        $resultaccess=mysqli_query($conn,$query);
+        $i=1;
+        ?>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Access Codes</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+        while($rowaccess = $resultaccess->fetch_assoc())
+        {
+        ?>
+                    <tr>
+                        <?php
+                        $access_code = htmlspecialchars($rowaccess['access_code']);
+                        $access_code_desc = getdescription($conn,"access_code",$access_code);
+                        ?>
+                        <td><?php echo $i++; ?></td>
+                        <td><?php echo $access_code; ?></td>
+                        <td><?php echo $access_code_desc; ?></td>
+                        <td>
+                            <button data-action="delete" data-parameter="<?php echo $access_code; ?>" data-type="access" type="submit" class="btn btn-danger zmultisubmit">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+        <?php 
+        }
+        ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <script>
     $(".ajaxsubmitform").zform();

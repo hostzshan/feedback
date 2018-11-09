@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         else
         {
             $data=array('username'=>$univ_roll,'pass'=>$hashandsalt,'usertype'=>'s','access_code'=>$access_code);
+            // var_dump($data);
             // errordisplay($error_main,'Registration disabled.');//Enable this to close registration during development
             if(insertintodb('regist',$data))
             {

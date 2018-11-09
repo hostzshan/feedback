@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         if(insertintodb('cluster',$data))
         {
             $access=$department.$batch.$section;
-            $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section);
+            $data=array('access_code'=>$access_code,'access'=>$access,'allowed_users'=>$allowed_users,'department'=>$department,'batch'=>$batch,'section'=>$section,'sub_section'=>$sub_section,'access_code_desc'=>'anchor');
             if(insertintodb('cluster',$data))
             {
                 $access=$department.$batch;

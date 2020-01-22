@@ -65,8 +65,8 @@ function sendmail($to,$subject,$body){
     $mail->Port = 465; // or 587
     $mail->IsHTML(true);
     $mail->Username = "authenticatorkaprakop";
-    $mail->Password = "asli!pass";
-    $mail->SetFrom("authenticatorkaprakop@gmail.com");
+    $mail->Password = "deleted";
+    $mail->SetFrom("deleted");
     $mail->Subject = $subject;
     $mail->Body = $body;
     $mail->AddAddress($to);
